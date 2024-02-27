@@ -31,8 +31,7 @@ ESRS = {' ': 729145, '!': 492464, '"': 951240, '#': 769264, '$': 375016, '%': 83
         'ц': 233330, 'ч': 136142, 'ш': 633886, 'щ': 155411, 'ъ': 992709, 'ы': 795362, 'ь': 645359, 'э': 133053,
         'ю': 662095, 'я': 334814, '^': 776645, '_': 832668, '[': 356023, ']': 225508, '\\': 897782}
 
-ERSR_number = {'0': 572740, '1': 450670, '2': 753051, '3': 353144, '4': 195655, '5': 880697, '6': 440939, '7': 549976,
-               '8': 650593, '9': 418544}
+ERSR_number = {'0': 572740, '1': 450670, '2': 753051, '3': 353144, '4': 195655, '5': 880697, '6': 440939, '7': 549976, '8': 650593, '9': 418544}
 
 
 def get_image_pixels(image_path):
@@ -44,49 +43,27 @@ def get_image_pixels(image_path):
     return img_sum_pxl_img_l
 
 
-def create_ESRS_dict():
-    esrs = {}
-    key_list = set()
+def re_noise_msg(msg_en: str, f_key: str, noise_l: list):
+    new_noise_l = []
+    re_noise_msg_user = ''
 
-    all_symbols = [chr(i) for i in range(32, 127) if i not in [91, 92, 93, 94, 95, 96]]
-    all_symbols += [chr(i) for i in range(1040, 1104) if i not in [1104, 1025, 1105]]
-    all_symbols += [str(i) for i in range(10)]
-    all_symbols += ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', '-', '=', '{', '}', '[', ']', ';', ':',
-                    '<', '>', '.', ',', '/', '?', '|', '\\', '~']
+    for new_el in list(noise_l):
+        if new_el == f_key:
+            continue
+        else:
+            new_noise_l.append(new_el)
 
-    for el_symbol in all_symbols:
-        new_key = random.randint(100000, 999999)
-        while new_key in key_list:
-            new_key = random.randint(100000, 999999)
-        key_list.add(new_key)
-        esrs[el_symbol] = new_key
-    return esrs
+    for el_msg in msg_en:
+        if el_msg in new_noise_l:
+            continue
+        else:
+            re_noise_msg_user += el_msg
 
-
-def create_ERSR_number():
-    key_list = set()
-    ersr_number_dict = {}
-    ersr_number = [str(i) for i in range(10)]
-    for el_symbol in ersr_number:
-        new_key = random.randint(100000, 999999)
-        while new_key in key_list:
-            new_key = random.randint(100000, 999999)
-        key_list.add(new_key)
-        ersr_number_dict[el_symbol] = new_key
-    return ersr_number
+    return re_noise_msg_user
 
 
-def msg_user_on_ESRS(msg: str, ESRS: dict, f_key):
-    msg_ERSR = ''
-    for el_msg in list(msg):
-        msg_ERSR += f'{str(ESRS[el_msg])}{f_key}'
-
-    return msg_ERSR
-
-
-def msg_ERSR_on_img(func_img: list, msg_ersr: str, s_key: str):
-    msg_user_l = list(msg_ersr)
-    msg_img = ''
+def re_msg_img(func_img: list, user_msg:str, s_key:str):
+    new_msg = ''
     key_img = 0
 
     if int(s_key) % 2 == 0:
@@ -94,71 +71,103 @@ def msg_ERSR_on_img(func_img: list, msg_ersr: str, s_key: str):
     else:
         key_img += sum(func_img) - int(s_key)
 
+    for el_msg in list(user_msg):
+        if el_msg.isdigit():
+            new_msg += str(int(el_msg) - key_img)
+        else:
+            new_msg += el_msg
+
+    return new_msg
+
+
+
+def re_esrs_v2_msg(re_noise_msg_user:str, esrs_number:dict):
+    main_re_noise_msg = []
+    re_noise_msg = []
+    edit_re_noise_msg_user = re_noise_msg_user+'q'
+    main_check_msg_ersr_l = []
+    check_msg_ersr_l = []
+    check_msg_ersr = ''
+    check_msg_l = []
+    check_msg = ''
+
+    for el_msg in list(edit_re_noise_msg_user):
+        if el_msg.isdigit():
+            check_msg += el_msg
+        else:
+            check_msg_l.append(check_msg)
+            check_msg = ''
+
+    for i, el_esrs_number in enumerate(check_msg_l):
+        if i != 0:
+            main_check_msg_ersr_l.append(check_msg_ersr_l)
+            check_msg_ersr_l.append(check_msg_ersr)
+            check_msg_ersr = ''
+            check_msg_ersr_l = []
+        for i, el in enumerate(list(el_esrs_number)):
+            if i % 6 == 0 and i != 0:
+                check_msg_ersr_l.append(check_msg_ersr)
+                check_msg_ersr = el
+            else:
+                check_msg_ersr += el
+    check_msg_ersr_l.append(check_msg_ersr)
+    main_check_msg_ersr_l.append(check_msg_ersr_l)
+
+    for check_ersr in main_check_msg_ersr_l:
+
+        for el in check_ersr:
+            main_re_noise_msg.append(re_noise_msg)
+            if int(el) in esrs_number.values():
+                key = next(key for key, value in esrs_number.items() if value == int(el))
+                re_noise_msg.append(key)
+    return main_re_noise_msg
+
+
+f_key = input('Введите первый ключ(буква)')
+s_key = input('Введите второй ключ(цифра)')
+
+de_noise = re_noise_msg(msg_en=input('Введите сообщение'), f_key=f_key, noise_l=noise_list)
+
+# print(de_noise)
+#
+# de_img = re_msg_img(func_img=get_image_pixels(image_path='C:/Users/User/Desktop/структура шаблона.png'), s_key=input('Введите второй ключ(цифра)'), user_msg=de_noise)
+#
+# print(de_img)
+
+
+def de_msg(msg_img, f_key, img_path, s_key, esrs_number):
+    img_pxl = get_image_pixels(image_path=img_path)
+
+    msg_user_l = list(msg_img)
+    key_img = 0
+
+    if int(s_key) % 2 == 0:
+        key_img += sum(img_pxl) + int(s_key)
+    else:
+        key_img += sum(img_pxl) - int(s_key)
+
+    msg_ERSR = ''
     for el_msg in msg_user_l:
         if el_msg.isdigit():
-            msg_img += str(int(el_msg) + key_img)
+            msg_ERSR += str(int(el_msg) - key_img)
         else:
-            msg_img += el_msg
+            msg_ERSR += el_msg
 
-    return msg_img
+    msg_user = ''
+    msg_ERSR_list = msg_ERSR.split(f_key)
+    for el_msg in msg_ERSR_list:
+        if el_msg:
+            msg_user += esrs_number[el_msg]
 
+    return msg_user
 
-def msg_img_on_ESRS_number(msg_img: str, esrs_number):
-    msg_esrs_v2 = ''
-
-    for el_msg in list(msg_img):
-        if el_msg in esrs_number:
-            msg_esrs_v2 += str(esrs_number[el_msg])
-        if el_msg not in esrs_number:
-            msg_esrs_v2 += el_msg
-
-    return msg_esrs_v2
+test_gpt =de_msg(msg_img=de_noise, f_key=f_key, img_path='C:/Users/User/Desktop/структура шаблона.png', esrs_number=ESRS, s_key=s_key)
 
 
-def msg_esrs_v2_on_noise(msg_esrs_v2, noise_l: list, f_key):
-    msg_noise = ''
-    new_noise_l = []
-
-    for new_el in noise_l:
-        if new_el == f_key:
-            continue
-        else:
-            new_noise_l.append(new_el)
-
-    for el_msg in list(msg_esrs_v2):
-        msg_noise += el_msg
-        for el_rand in range(10, 20):
-            rand_num = random.randint(0, len(new_noise_l)-1)
-            msg_noise += str(new_noise_l[rand_num])
-
-    return msg_noise
+print(test_gpt)
 
 
-msg_user = input('Введите сообщение ')  # Сообщение которое нужно зашифровать
-f_key = input(f'Введите первый ключ')  # Ключ: любой символ, но не цифра
-s_key = input(f'Введите второй ключ')  # Ключ: любая цифра
 
-
-def en_msg(msg_user, ESRS, f_key, img_path, s_key, esrs_number, noise_list):
-    msg_esrs = msg_user_on_ESRS(msg=msg_user, ESRS=ESRS, f_key=f_key)
-    img_pxl = get_image_pixels(image_path=img_path)
-    msg_img = msg_ERSR_on_img(func_img=img_pxl, msg_ersr=msg_esrs, s_key=s_key)
-    # msg_ersr_v2 = msg_img_on_ESRS_number(msg_img=msg_img, esrs_number=esrs_number)
-    msg_noise = msg_esrs_v2_on_noise(msg_esrs_v2=msg_img, noise_l=noise_list, f_key=f_key)
-
-    return msg_noise
-
-
-new_msg = en_msg(msg_user=msg_user, ESRS=ESRS, f_key=f_key, img_path='C:/Users/User/Desktop/структура шаблона.png', s_key=s_key,
-                 esrs_number=ERSR_number, noise_list=noise_list)
-
-print(new_msg)
-
-
-de =  '464049123 - de'
-en = 464049093
-test = ['464049130464049130464049131464049135464049128464049131']
-test_2 = ['464049130464049130464049131464049135464049128464049131']
 
 
 
