@@ -62,7 +62,7 @@ def re_noise_msg(msg_en: str, f_key: str, noise_l: list):
     return re_noise_msg_user
 
 
-def re_msg_img(func_img: list, user_msg:str, s_key:str):
+def re_msg_img(func_img: list, user_msg:list, s_key:str):
     new_msg = ''
     key_img = 0
 
@@ -71,20 +71,19 @@ def re_msg_img(func_img: list, user_msg:str, s_key:str):
     else:
         key_img += sum(func_img) - int(s_key)
 
-    for el_msg in list(user_msg):
-        if el_msg.isdigit():
-            new_msg += str(int(el_msg) - key_img)
+    for el_msg in user_msg:
+        if ''.join(el_msg).isdigit():
+            new_msg += str(int(''.join(el_msg)) - key_img)
         else:
-            new_msg += el_msg
+            new_msg += ''.join(el_msg)
 
     return new_msg
 
 
-
-def re_esrs_v2_msg(re_noise_msg_user:str, esrs_number:dict):
+def re_esrs_v2_msg(re_noise_msg_user:str, esrs_number:dict, f_key:str):
     main_re_noise_msg = []
     re_noise_msg = []
-    edit_re_noise_msg_user = re_noise_msg_user+'q'
+    edit_re_noise_msg_user = re_noise_msg_user+f_key
     main_check_msg_ersr_l = []
     check_msg_ersr_l = []
     check_msg_ersr = ''
@@ -114,57 +113,27 @@ def re_esrs_v2_msg(re_noise_msg_user:str, esrs_number:dict):
     main_check_msg_ersr_l.append(check_msg_ersr_l)
 
     for check_ersr in main_check_msg_ersr_l:
-
         for el in check_ersr:
             main_re_noise_msg.append(re_noise_msg)
-            if int(el) in esrs_number.values():
-                key = next(key for key, value in esrs_number.items() if value == int(el))
-                re_noise_msg.append(key)
+            if el.isdigit():
+                if int(el) in esrs_number.values():
+                    key = next(key for key, value in esrs_number.items() if value == int(el))
+                    re_noise_msg.append(key)
     return main_re_noise_msg
 
 
+msg_en = input('Введите сообщение')
 f_key = input('Введите первый ключ(буква)')
 s_key = input('Введите второй ключ(цифра)')
+img_path='C:/Users/User/Desktop/структура шаблона.png'
 
-de_noise = re_noise_msg(msg_en=input('Введите сообщение'), f_key=f_key, noise_l=noise_list)
-
-# print(de_noise)
-#
-# de_img = re_msg_img(func_img=get_image_pixels(image_path='C:/Users/User/Desktop/структура шаблона.png'), s_key=input('Введите второй ключ(цифра)'), user_msg=de_noise)
-#
-# print(de_img)
-
-
-def de_msg(msg_img, f_key, img_path, s_key, esrs_number):
-    img_pxl = get_image_pixels(image_path=img_path)
-
-    msg_user_l = list(msg_img)
-    key_img = 0
-
-    if int(s_key) % 2 == 0:
-        key_img += sum(img_pxl) + int(s_key)
-    else:
-        key_img += sum(img_pxl) - int(s_key)
-
-    msg_ERSR = ''
-    for el_msg in msg_user_l:
-        if el_msg.isdigit():
-            msg_ERSR += str(int(el_msg) - key_img)
-        else:
-            msg_ERSR += el_msg
-
-    msg_user = ''
-    msg_ERSR_list = msg_ERSR.split(f_key)
-    for el_msg in msg_ERSR_list:
-        if el_msg:
-            msg_user += esrs_number[el_msg]
-
-    return msg_user
-
-test_gpt =de_msg(msg_img=de_noise, f_key=f_key, img_path='C:/Users/User/Desktop/структура шаблона.png', esrs_number=ESRS, s_key=s_key)
+de_noise = re_noise_msg(msg_en=msg_en, f_key=f_key, noise_l=noise_list)
+de_esrs_v2_msg = re_esrs_v2_msg(re_noise_msg_user=de_noise, esrs_number=ERSR_number, f_key=f_key)
+img_pxl = get_image_pixels(image_path=img_path)
+de_img_msg = re_msg_img(func_img=img_pxl, user_msg=de_esrs_v2_msg, s_key=s_key)
+print(de_img_msg)
 
 
-print(test_gpt)
 
 
 
