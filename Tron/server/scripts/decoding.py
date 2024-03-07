@@ -1,6 +1,7 @@
 import random
 from PIL import Image
 
+
 noise_list = [' ', '!', '"', '#', '$', '%', '&', "'", '(', ')', '*', '+', ',', '-', '/', ':', ';', '<', '=', '>',
               '?', '@', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
               'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '[', '\\', ']', '^', '_', '`', 'a', 'b', 'c', 'd', 'e', 'f',
@@ -62,25 +63,25 @@ def re_noise_msg(msg_en: str, f_key: str, noise_l: list):
     return re_noise_msg_user
 
 
-def re_msg_img(func_img: list, user_msg:list, s_key:str):
-    new_msg = ''
-    key_img = 0
+# def re_msg_img(func_img: list, user_msg:list, s_key:str):
+#     new_msg = ''
+#     key_img = 0
+#
+#     if int(s_key) % 2 == 0:
+#         key_img += sum(func_img) + int(s_key)
+#     else:
+#         key_img += sum(func_img) - int(s_key)
+#
+#     for el_msg in user_msg:
+#         if ''.join(el_msg).isdigit():
+#             new_msg += str(int(''.join(el_msg)) - key_img)
+#         else:
+#             new_msg += ''.join(el_msg)
+#
+#     return new_msg
 
-    if int(s_key) % 2 == 0:
-        key_img += sum(func_img) + int(s_key)
-    else:
-        key_img += sum(func_img) - int(s_key)
 
-    for el_msg in user_msg:
-        if ''.join(el_msg).isdigit():
-            new_msg += str(int(''.join(el_msg)) - key_img)
-        else:
-            new_msg += ''.join(el_msg)
-
-    return new_msg
-
-
-def re_esrs_v2_msg(re_noise_msg_user:str, esrs_number:dict, f_key:str):
+def re_esrs_v2_msg(re_noise_msg_user:str, esrs_number:dict, f_key:str, img_pxl, s_key:str, esrs: dict):
     main_re_noise_msg = []
     re_noise_msg = []
     edit_re_noise_msg_user = re_noise_msg_user+f_key
@@ -111,27 +112,72 @@ def re_esrs_v2_msg(re_noise_msg_user:str, esrs_number:dict, f_key:str):
                 check_msg_ersr += el
     check_msg_ersr_l.append(check_msg_ersr)
     main_check_msg_ersr_l.append(check_msg_ersr_l)
+    test_arr = []
+    main_esrs_not_img = []
+    main_intermediate = []
+    esrs_l = []
+    msg_user = ''
+    key_img = 0
 
     for check_ersr in main_check_msg_ersr_l:
+        esrs_not_img = []  # Создаем пустой список для текущего подмассива
         for el in check_ersr:
-            main_re_noise_msg.append(re_noise_msg)
             if el.isdigit():
                 if int(el) in esrs_number.values():
                     key = next(key for key, value in esrs_number.items() if value == int(el))
-                    re_noise_msg.append(key)
-    return main_re_noise_msg
+                    esrs_not_img.append(key)
+        main_esrs_not_img.append(esrs_not_img)  # Добавляем текущий подмассив в общий список
+
+    # for test_check in main_check_msg_ersr_l[0]:
+    #     if test_check.isdigit():
+    #         if int(test_check) in esrs_number.values():
+    #             key = next(key for key, value in esrs_number.items() if value == int(test_check))
+    #             test_arr.append(key)
+
+    for el in main_esrs_not_img:
+        main_intermediate.append([el[i:i+int(len(str(sum(img_pxl))))] for i in range(0, len(el), 10)])
+
+    if int(s_key) % 2 == 0:
+        key_img += sum(img_pxl) + int(s_key)
+    else:
+        key_img += sum(img_pxl) - int(s_key)
+
+    for intermediate in main_intermediate:
+        el_esrs_l = []
+        for el_inter_1 in intermediate:
+            el_esrs_l.append(int(''.join(el_inter_1))-key_img)
+        esrs_l.append(''.join(map(str, el_esrs_l)))
+
+    for msg in esrs_l:
+        if msg.isdigit():
+            if int(msg) in esrs.values():
+                msg_world = next(key for key, value in esrs.items() if value == int(msg))
+                msg_user += msg_world
 
 
-msg_en = input('Введите сообщение')
-f_key = input('Введите первый ключ(буква)')
-s_key = input('Введите второй ключ(цифра)')
-img_path='C:/Users/User/Desktop/структура шаблона.png'
+    return msg_user
 
-de_noise = re_noise_msg(msg_en=msg_en, f_key=f_key, noise_l=noise_list)
-de_esrs_v2_msg = re_esrs_v2_msg(re_noise_msg_user=de_noise, esrs_number=ERSR_number, f_key=f_key)
-img_pxl = get_image_pixels(image_path=img_path)
-de_img_msg = re_msg_img(func_img=img_pxl, user_msg=de_esrs_v2_msg, s_key=s_key)
-print(de_img_msg)
+
+# msg_en = input('Введите сообщение ')
+# f_key = input('Введите первый ключ(буква) ')
+# s_key = input('Введите второй ключ(цифра) ')
+# img_path='/home/trigger/Рабочий стол/КБССК.png'
+#
+#
+#
+#
+def de_msg(msg_en, f_key, s_key, noise_l, image_patch, esrs_number, esrs):
+    de_noise = re_noise_msg(msg_en=msg_en, f_key=f_key, noise_l=noise_l)
+    img_pxl = get_image_pixels(image_path=image_patch)
+    de_esrs_v2_msg = re_esrs_v2_msg(re_noise_msg_user=de_noise, esrs_number=esrs_number, f_key=f_key, img_pxl=img_pxl,
+                                    s_key=s_key, esrs=esrs)
+
+    return de_esrs_v2_msg
+#
+#
+# print(de_msg(msg_en=msg_en, f_key=f_key, s_key=s_key, noise_l=noise_list,
+#              image_patch='/home/trigger/Рабочий стол/КБССК.png', esrs_number=ERSR_number, esrs=ESRS))
+
 
 
 
