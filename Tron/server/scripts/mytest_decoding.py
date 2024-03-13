@@ -68,20 +68,25 @@ for i, el_s_key in enumerate(test_s_key):
 print('--- Проверка дешифрования сообщения ---')
 print('Проверка на корректность сообщение')
 for i, el_msg in enumerate(test_de_msg):
-    de_msg(msg_en=el_msg, f_key=test_f_key[0], s_key=test_s_key[0], noise_l=noise_list,
+    new_msg = de_msg(msg_en=el_msg, f_key=test_f_key[0], s_key=test_s_key[0], noise_l=noise_list,
            image_patch='/home/trigger/Рабочий стол/КБССК.png', esrs_number=ERSR_number, esrs=ESRS)
-    print(f'Тест {i + 1}/{len(test_s_key)} пройден!')
+    if test_msg[i] == new_msg:
+        print(f'Тест {i + 1}/{len(test_s_key)} пройден!')
+    else:
+        print('Тест не пройден')
 
 print('Проверка на корректность первого ключа')
 for i, el_f_key in enumerate(test_f_key):
-    de_msg(msg_en=test_de_f_key[i], f_key=el_f_key, s_key=test_s_key[0], noise_l=noise_list,
+    new_msg = de_msg(msg_en=test_de_f_key[i], f_key=el_f_key, s_key=test_s_key[0], noise_l=noise_list,
            image_patch='/home/trigger/Рабочий стол/КБССК.png', esrs_number=ERSR_number, esrs=ESRS)
-    print(f'Тест {i + 1}/{len(test_s_key)} пройден!')
+    if test_msg[0] == new_msg:
+        print(f'Тест {i + 1}/{len(test_s_key)} пройден!')
 
 print('Проверка на корректность второго ключа')
 for i, el_s_key in enumerate(test_s_key):
-    de_msg(msg_en=test_de_s_key[i], f_key=test_f_key[0], s_key=el_s_key, noise_l=noise_list,
+    new_msg = de_msg(msg_en=test_de_s_key[i], f_key=test_f_key[0], s_key=el_s_key, noise_l=noise_list,
            image_patch='/home/trigger/Рабочий стол/КБССК.png', esrs_number=ERSR_number, esrs=ESRS)
-    print(f'Тест {i + 1}/{len(test_s_key)} пройден!')
+    if test_msg[0] == new_msg:
+        print(f'Тест {i + 1}/{len(test_s_key)} пройден!')
 
 

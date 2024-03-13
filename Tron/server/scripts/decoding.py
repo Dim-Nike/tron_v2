@@ -154,14 +154,13 @@ def re_esrs_v2_msg(re_noise_msg_user:str, esrs_number:dict, f_key:str, img_pxl, 
                 msg_world = next(key for key, value in esrs.items() if value == int(msg))
                 msg_user += msg_world
 
-
     return msg_user
 
 
-# msg_en = input('Введите сообщение ')
-# f_key = input('Введите первый ключ(буква) ')
-# s_key = input('Введите второй ключ(цифра) ')
-# img_path='/home/trigger/Рабочий стол/КБССК.png'
+msg_en = input('Введите сообщение ')
+f_key = input('Введите первый ключ(буква) ')
+s_key = input('Введите второй ключ(цифра) ')
+img_path='/home/trigger/Рабочий стол/КБССК.png'
 #
 #
 #
@@ -174,9 +173,9 @@ def de_msg(msg_en, f_key, s_key, noise_l, image_patch, esrs_number, esrs):
 
     return de_esrs_v2_msg
 #
-#
-# print(de_msg(msg_en=msg_en, f_key=f_key, s_key=s_key, noise_l=noise_list,
-#              image_patch='/home/trigger/Рабочий стол/КБССК.png', esrs_number=ERSR_number, esrs=ESRS))
+# #
+print(de_msg(msg_en=msg_en, f_key=f_key, s_key=s_key, noise_l=noise_list,
+             image_patch='/home/trigger/Рабочий стол/КБССК.png', esrs_number=ERSR_number, esrs=ESRS))
 
 
 
