@@ -1,3 +1,9 @@
 from django.shortcuts import render
 
-# Create your views here.
+def show_index(req):
+
+    data = {
+        'title': 'Чаты'
+    }
+
+    return render(req, 'server/chat.html', data)
