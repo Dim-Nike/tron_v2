@@ -4,6 +4,8 @@ from django.conf import settings
 from .views import *
 
 urlpatterns = [
-    path('', show_index, name='index')
+    path('', show_index, name='index'),
+    path('login', show_login, name='login'),
+    path('register', show_register, name='register')
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
