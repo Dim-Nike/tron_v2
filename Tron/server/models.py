@@ -27,9 +27,9 @@ class CustomUserManager(BaseUserManager):
 
 class User(AbstractBaseUser):
     login = models.CharField(max_length=150, unique=True)
-    password = models.CharField(max_length=128)
-    IDF = models.CharField(max_length=500)
-    tariff = models.CharField(max_length=50)
+    password = models.CharField(max_length=128) # todo Delete
+    IDF = models.CharField(max_length=500)   # todo add in model flesh
+    tariff = models.CharField(max_length=50) # todo Delete
 
     objects = CustomUserManager()
 
@@ -38,3 +38,6 @@ class User(AbstractBaseUser):
 
     def __str__(self):
         return self.login
+
+
+# TODO ADD FAIL IN settings.py [ AUTH_USER_MODEL = 'User.CustomUser' ]
