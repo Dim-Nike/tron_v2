@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-def show_index(req):
+def show_chat(req):
 
     data = {
         'title': 'Чаты'
@@ -17,10 +17,18 @@ def show_login(req):
 
     return render(req, 'server/login.html', data)
 
-
 def show_register(req):
 
     data = {
         'title': 'Регистрация'
     }
     return render(req, 'server/register.html', data)
+
+def show_index(req):
+    data = {
+        'title': 'Главная',
+        'num_msg': '70',
+        'num_dialog': '80',
+    }
+
+    return render(req, 'server/index-crypto.html', data)
