@@ -5,11 +5,8 @@
 {% block title %}{{ data.title }}{% endblock %}
 {% block content %}
                 <!-- Page Button Group Start -->
-                <div class="col-12 col-lg-auto mb-20">
-                    <div class="page-date-range">
-                        <input type="text" class="form-control input-date-predefined">
-                    </div>
-                </div><!-- Page Button Group End -->
+                <button class="sweetalert sweetalert-success button button-success">Перейти в чат</button>
+                <button class="sweetalert sweetalert-warning button button-warning">Настроить доступ индификатора</button>
 
             </div><!-- Page Headings End -->
 
@@ -20,22 +17,22 @@
                     <div class="top-report top-report-2">
 
                         <!-- Icon -->
-                        <div class="icon"><img src="{% static 'server/assets/images/icons/cryptocurrency-top-sale-report-2.png' %}" alt=""></div>
+                        <div class="icon"><img src="{% static 'server/assets/images/icons/cryptocurrency-top-sale-report-1.png' %}" alt=""></div>
 
                         <!-- Head -->
                         <div class="head">
-                            <h4>Ethereum Rate</h4>
+                            <h4>Доступно сообщений</h4>
                         </div>
 
                         <!-- Content -->
                         <div class="content">
-                            <h2>7,400.00</h2>
+                            <h2>2000 из 2500</h2>
                         </div>
 
                         <!-- Footer -->
                         <div class="footer">
                             <div class="progess">
-                                <div class="progess-bar" style="width: 98%;"></div>
+                                <div class="progess-bar" style="width: {{num_msg}}%;"></div>
                             </div>
                             <p>ETH (USD) = $149.25 (-12.24%)</p>
                         </div>
@@ -52,18 +49,18 @@
 
                         <!-- Head -->
                         <div class="head">
-                            <h4>Ethereum Rate</h4>
+                            <h4>Доступно диалогов</h4>
                         </div>
 
                         <!-- Content -->
                         <div class="content">
-                            <h2>7,400.00</h2>
+                            <h2>4 из 5</h2>
                         </div>
 
                         <!-- Footer -->
                         <div class="footer">
                             <div class="progess">
-                                <div class="progess-bar" style="width: 98%;"></div>
+                                <div class="progess-bar" style="width: {{ num_dialog }}%;"></div>
                             </div>
                             <p>ETH (USD) = $149.25 (-12.24%)</p>
                         </div>
@@ -108,7 +105,7 @@
 
                         <!-- Head -->
                         <div class="head">
-                            <h4>Monero Rate</h4>
+                            <h4>Доступно сообщений</h4>
                         </div>
 
                         <!-- Content -->
@@ -140,20 +137,20 @@
 
                             <div class="chart-legends-1 row">
                                 <div class="chart-legend-1 col-12 col-sm-6 col-md-3">
-                                    <h5>Bitcoin</h5>
-                                    <h3 class="text-secondary">$15,752.00</h3>
+                                    <h5>Мои сообщение</h5>
+                                    <h3 class="text-secondary">1543 шт</h3>
                                 </div>
                                 <div class="chart-legend-1 col-12 col-sm-6 col-md-3">
-                                    <h5>Ethereum</h5>
-                                    <h3 class="text-primary">$7,400.00</h3>
+                                    <h5>Скорость отправки сообщений</h5>
+                                    <h3 class="text-primary">12 сек</h3>
                                 </div>
                                 <div class="chart-legend-1 col-12 col-sm-6 col-md-3">
-                                    <h5>Ripple</h5>
-                                    <h3 class="text-warning">5,000.00</h3>
+                                    <h5>Среднее кол-во символов</h5>
+                                    <h3 class="text-warning">120000 шт</h3>
                                 </div>
                                 <div class="chart-legend-1 col-12 col-sm-6 col-md-3">
-                                    <h5>Monero</h5>
-                                    <h3 class="text-info">4,000.00</h3>
+                                    <h5>Степень защиты</h5>
+                                    <h3 class="text-info">4</h3>
                                 </div>
                             </div>
 
@@ -166,55 +163,7 @@
                 </div><!-- Revenue Statistics Chart End -->
 
                 <!-- Market Trends Chart Start -->
-                <div class="col-xlg-4 col-lg-6 col-md-12 mb-30">
-                    <div class="box">
-                        <div class="box-head">
-                            <h4 class="title">Market Trends</h4>
-                        </div>
-                        <div class="box-body">
-                            <span class="h5 m-0">Report of Currency</span>
-                            <h3 class="mb-20">Dashboard Report</h3>
 
-                            <div class="chartjs-market-trends-chart-2">
-                                <canvas id="chartjs-market-trends-chart-2"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div><!-- Market Trends Chart End -->
-
-                <!-- Analytics Chart Start -->
-                <div class="col-xlg-4 col-lg-6 col-md-12 mb-30">
-                    <div class="box">
-                        <div class="box-head">
-                            <h4 class="title">Analytics</h4>
-                        </div>
-                        <div class="box-body">
-                            <span class="h5 m-0">Report of Currency</span>
-                            <h3 class="mb-20">Dashboard Report</h3>
-
-                            <div class="chartjs-analytics-chart">
-                                <canvas id="chartjs-analytics-chart"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div><!-- Analytics Chart End -->
-
-                <!-- Graph Chart Start -->
-                <div class="col-xlg-4 col-lg-6 col-md-12 mb-30">
-                    <div class="box">
-                        <div class="box-head">
-                            <h4 class="title">Graph</h4>
-                        </div>
-                        <div class="box-body">
-                            <span class="h5 m-0">Rate/usd</span>
-                            <h3 class="mb-20">Currency Conversion</h3>
-
-                            <div class="chartjs-graph-chart">
-                                <canvas id="chartjs-graph-chart"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div><!-- Graph Chart End -->
 
                 <!-- News & Updates Start -->
                 <div class="col-xlg-5 col-lg-6 col-12 mb-30">
@@ -306,94 +255,18 @@
                 </div><!-- Top Selling Country End -->
 
                 <!-- Recent Transaction Start -->
-                <div class="col-12 mb-30">
-                    <div class="box">
-                        <div class="box-head">
-                            <h4 class="title">Recent Transaction</h4>
-                        </div>
-                        <div class="box-body">
-                            <div class="table-responsive">
-                                <table class="table table-selectable table-vertical-middle">
 
-                                    <!-- Table Head Start -->
-                                    <thead>
-                                        <tr>
-                                            <th><label class="adomx-checkbox"><input type="checkbox"> <i class="icon"></i></label></th>
-                                            <th><span>Date</span></th>
-                                            <th><span>Type</span></th>
-                                            <th><span>Amount</span></th>
-                                            <th><span>Remaining</span></th>
-                                            <th><span>Pricing</span></th>
-                                            <th><span>USD</span></th>
-                                            <th><span>Fees(%)</span></th>
-                                            <th>Status</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead><!-- Table Head End -->
-
-                                    <!-- Table Body Start -->
-                                    <tbody>
-                                        <tr>
-                                            <td><label class="adomx-checkbox"><input type="checkbox"> <i class="icon"></i></label></td>
-                                            <td><span>13 April 2019</span></td>
-                                            <td><span>Sell</span></td>
-                                            <td><span>7520.11</span></td>
-                                            <td><span>0.1256</span></td>
-                                            <td><span>1124.55</span></td>
-                                            <td><span>7520.11</span></td>
-                                            <td><span>89%</span></td>
-                                            <td><span class="badge badge-success">Paid</span></td>
-                                            <td><a class="h3" href="#"><i class="zmdi zmdi-more"></i></a></td>
-                                        </tr>
-                                        <tr>
-                                            <td><label class="adomx-checkbox"><input type="checkbox"> <i class="icon"></i></label></td>
-                                            <td><span>01 May 2019</span></td>
-                                            <td><span>Due</span></td>
-                                            <td><span>8533.00</span></td>
-                                            <td><span>0.2254</span></td>
-                                            <td><span>1254.33</span></td>
-                                            <td><span>8533.00</span></td>
-                                            <td><span>50%</span></td>
-                                            <td><span class="badge badge-warning">Due</span></td>
-                                            <td><a class="h3" href="#"><i class="zmdi zmdi-more"></i></a></td>
-                                        </tr>
-                                        <tr class="selected">
-                                            <td><label class="adomx-checkbox"><input type="checkbox"> <i class="icon"></i></label></td>
-                                            <td><span>17 May 2019</span></td>
-                                            <td><span>Sell</span></td>
-                                            <td><span>5533.00</span></td>
-                                            <td><span>0.2366</span></td>
-                                            <td><span>3255.22</span></td>
-                                            <td><span>6533.00</span></td>
-                                            <td><span>64%</span></td>
-                                            <td><span class="badge badge-success">Paid</span></td>
-                                            <td><a class="h3" href="#"><i class="zmdi zmdi-more"></i></a></td>
-                                        </tr>
-                                        <tr>
-                                            <td><label class="adomx-checkbox"><input type="checkbox"> <i class="icon"></i></label></td>
-                                            <td><span>21 May 2019</span></td>
-                                            <td><span>Sell</span></td>
-                                            <td><span>9322.22</span></td>
-                                            <td><span>0.7786</span></td>
-                                            <td><span>3266.96</span></td>
-                                            <td><span>9322.22</span></td>
-                                            <td><span>55%</span></td>
-                                            <td><span class="badge badge-danger">Reject</span></td>
-                                            <td><a class="h3" href="#"><i class="zmdi zmdi-more"></i></a></td>
-                                        </tr>
-                                    </tbody><!-- Table Body End -->
-
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div><!-- Recent Transaction End -->
 
             </div>
 
         </div><!-- Content Body End -->
 
 {% endblock %}
+<script>
+$('.sweetalert-basic').on('click', function(){
+    swal("Hello world!");
+});
+</script>
 
 </body>
 

@@ -26,7 +26,9 @@ def show_register(req):
 
 def show_index(req):
     data = {
-        'title': 'Главная'
+        'title': 'Главная',
+        'num_msg': '70',
+        'num_dialog': '80',
     }
 
     return render(req, 'server/index-crypto.html', data)
