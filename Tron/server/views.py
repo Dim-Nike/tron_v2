@@ -1,4 +1,5 @@
 from django.contrib.auth import login, authenticate
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
 
@@ -57,6 +58,13 @@ def show_register(req):
                     user = User.objects.create_user(username=username, password=password, flesh=user_flesh)
                     user_flesh.is_use_user = True
                     user_flesh.save()
+                    user.balance_tariff = TariffBalances.objects.create(
+                        count_change_key=user.flesh.tariff.count_change_key,
+                        count_msg=user.flesh.tariff.count_msg,
+                        count_dialog=user.flesh.tariff.count_dialog,
+                        count_update_tariff=user.flesh.tariff.count_update_tariff
+                    )
+                    user.save()
                     return redirect('login')
             else:
                 form.add_error('confirm_password', 'Пароли не совпадают')
@@ -69,11 +77,19 @@ def show_register(req):
     }
     return render(req, 'server/register.html', data)
 
+@login_required
 def show_index(req):
+    data_user_tariff = [(req.user.balance_tariff.count_msg, req.user.flesh.tariff.count_msg),
+                        (req.user.balance_tariff.count_dialog, req.user.flesh.tariff.count_dialog),
+                        (req.user.balance_tariff.count_change_key, req.user.flesh.tariff.count_change_key),
+                        (req.user.balance_tariff.count_update_tariff, req.user.flesh.tariff.count_update_tariff),
+                        # req.user.flesh.tariff.delay, req.user.flesh.tariff.mess_ln, req.user.flesh.tariff.deg_protection
+                        ]  # TODO долеать
+    print(data_user_tariff[0])
     data = {
         'title': 'Главная',
-        'num_msg': '70',
-        'num_dialog': '80',
+        'data_user': data_user_tariff
+
     }
 
     return render(req, 'server/index-crypto.html', data)

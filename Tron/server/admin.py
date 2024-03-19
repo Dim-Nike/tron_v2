@@ -15,3 +15,5 @@ class TariffAdmin(admin.ModelAdmin):
 admin.site.register(User)
 admin.site.register(Flesh, FleshAdmin)
 admin.site.register(Tariff, TariffAdmin)
+admin.site.register(TariffBalances)
+

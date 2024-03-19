@@ -13,7 +13,8 @@
             <!-- Top Report Wrap Start -->
             <div class="row">
                 <!-- Top Report Start -->
-                 <div class="col-xlg-3 col-md-6 col-12 mb-30">
+                {% for el in data_user %}
+                    <div class="col-xlg-3 col-md-6 col-12 mb-30">
                     <div class="top-report top-report-2">
 
                         <!-- Icon -->
@@ -26,7 +27,7 @@
 
                         <!-- Content -->
                         <div class="content">
-                            <h2>2000 из 2500</h2>
+                            <h2>{{ el }} из {{ el }}</h2>
                         </div>
 
                         <!-- Footer -->
@@ -39,90 +40,9 @@
 
                     </div>
                 </div><!-- Top Report End -->
+                {% endfor %}
 
-                <!-- Top Report Start -->
-                <div class="col-xlg-3 col-md-6 col-12 mb-30">
-                    <div class="top-report top-report-2">
 
-                        <!-- Icon -->
-                        <div class="icon"><img src="{% static 'server/assets/images/icons/cryptocurrency-top-sale-report-2.png' %}" alt=""></div>
-
-                        <!-- Head -->
-                        <div class="head">
-                            <h4>Доступно диалогов</h4>
-                        </div>
-
-                        <!-- Content -->
-                        <div class="content">
-                            <h2>4 из 5</h2>
-                        </div>
-
-                        <!-- Footer -->
-                        <div class="footer">
-                            <div class="progess">
-                                <div class="progess-bar" style="width: {{ num_dialog }}%;"></div>
-                            </div>
-                            <p>ETH (USD) = $149.25 (-12.24%)</p>
-                        </div>
-
-                    </div>
-                </div><!-- Top Report End -->
-
-                <!-- Top Report Start -->
-                <div class="col-xlg-3 col-md-6 col-12 mb-30">
-                    <div class="top-report top-report-2">
-
-                        <!-- Icon -->
-                        <div class="icon"><img src="{% static 'server/assets/images/icons/cryptocurrency-top-sale-report-3.png' %}" alt=""></div>
-
-                        <!-- Head -->
-                        <div class="head">
-                            <h4>Ripple Rate</h4>
-                        </div>
-
-                        <!-- Content -->
-                        <div class="content">
-                            <h2>5,000.00</h2>
-                        </div>
-
-                        <!-- Footer -->
-                        <div class="footer">
-                            <div class="progess">
-                                <div class="progess-bar" style="width: 20%;"></div>
-                            </div>
-                            <p>XRP (USD) = $0.4921 (-1.01%)</p>
-                        </div>
-
-                    </div>
-                </div><!-- Top Report End -->
-
-                <!-- Top Report Start -->
-                <div class="col-xlg-3 col-md-6 col-12 mb-30">
-                    <div class="top-report top-report-2">
-
-                        <!-- Icon -->
-                        <div class="icon"><img src="{% static 'server/assets/images/icons/cryptocurrency-top-sale-report-4.png' %}" alt=""></div>
-
-                        <!-- Head -->
-                        <div class="head">
-                            <h4>Доступно сообщений</h4>
-                        </div>
-
-                        <!-- Content -->
-                        <div class="content">
-                            <h2>4,000.00</h2>
-                        </div>
-
-                        <!-- Footer -->
-                        <div class="footer">
-                            <div class="progess">
-                                <div class="progess-bar" style="width: 76%;"></div>
-                            </div>
-                            <p>XMR (USD) = $09.271 (+2.07%)</p>
-                        </div>
-
-                    </div>
-                </div><!-- Top Report End -->
             </div><!-- Top Report Wrap End -->
 
             <div class="row mbn-30">
