@@ -4,7 +4,7 @@ from django.conf import settings
 from .views import *
 
 urlpatterns = [
-    path('', show_index, name='index'),
+    path('', show_index, name='home'),
     path('login', show_login, name='login'),
     path('register', show_register, name='register'),
     path('chat', show_chat, name='chat'),
