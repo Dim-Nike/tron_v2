@@ -59,6 +59,7 @@ def show_register(req):
                     user_flesh.is_use_user = True
                     user_flesh.save()
                     user.balance_tariff = TariffBalances.objects.create(
+                        count_msg_user=0,
                         count_change_key=user.flesh.tariff.count_change_key,
                         count_msg=user.flesh.tariff.count_msg,
                         count_dialog=user.flesh.tariff.count_dialog,
@@ -79,16 +80,35 @@ def show_register(req):
 
 @login_required
 def show_index(req):
-    data_user_tariff = [(req.user.balance_tariff.count_msg, req.user.flesh.tariff.count_msg),
-                        (req.user.balance_tariff.count_dialog, req.user.flesh.tariff.count_dialog),
-                        (req.user.balance_tariff.count_change_key, req.user.flesh.tariff.count_change_key),
-                        (req.user.balance_tariff.count_update_tariff, req.user.flesh.tariff.count_update_tariff),
-                        # req.user.flesh.tariff.delay, req.user.flesh.tariff.mess_ln, req.user.flesh.tariff.deg_protection
-                        ]  # TODO долеать
-    print(data_user_tariff[0])
+    data_user = {
+        'count_msg': [
+            req.user.balance_tariff.count_msg,
+            req.user.flesh.tariff.count_msg,
+            req.user.balance_tariff.count_msg*1000 // req.user.flesh.tariff.count_msg*1000 // 10000
+
+        ],
+        'count_dialog': [
+            req.user.balance_tariff.count_dialog,
+            req.user.flesh.tariff.count_dialog,
+            req.user.balance_tariff.count_dialog*1000 // req.user.flesh.tariff.count_dialog*1000 // 10000
+        ],
+        'count_change_key': [
+            req.user.balance_tariff.count_change_key,
+            req.user.flesh.tariff.count_change_key,
+            req.user.balance_tariff.count_change_key*1000 // req.user.flesh.tariff.count_change_key*1000 // 10000
+        ],
+        'count_update_tariff': [
+            req.user.balance_tariff.count_update_tariff,
+            req.user.flesh.tariff.count_update_tariff,
+            req.user.balance_tariff.count_update_tariff*1000 // req.user.flesh.tariff.count_update_tariff*1000 // 10000
+        ],
+        'delay': req.user.flesh.tariff.delay, 'mess_ln': req.user.flesh.tariff.mess_ln, 'deg_protection': req.user.flesh.tariff.deg_protection, 'count_msg_user': req.user.balance_tariff.count_msg_user
+    }
+
+
     data = {
         'title': 'Главная',
-        'data_user': data_user_tariff
+        'data_user': data_user
 
     }
 

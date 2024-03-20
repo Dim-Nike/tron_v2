@@ -8,13 +8,12 @@
                 <button class="sweetalert sweetalert-success button button-success">Перейти в чат</button>
                 <button class="sweetalert sweetalert-warning button button-warning">Настроить доступ индификатора</button>
 
-            </div><!-- Page Headings End -->
+
 
             <!-- Top Report Wrap Start -->
-            <div class="row">
+             <div class="row">
                 <!-- Top Report Start -->
-                {% for el in data_user %}
-                    <div class="col-xlg-3 col-md-6 col-12 mb-30">
+                <div class="col-xlg-3 col-md-6 col-12 mb-30">
                     <div class="top-report top-report-2">
 
                         <!-- Icon -->
@@ -27,50 +26,131 @@
 
                         <!-- Content -->
                         <div class="content">
-                            <h2>{{ el }} из {{ el }}</h2>
+                            <h2>{{ data_user.count_msg.0 }} из {{ data_user.count_msg.1 }}</h2>
                         </div>
 
                         <!-- Footer -->
                         <div class="footer">
                             <div class="progess">
-                                <div class="progess-bar" style="width: {{num_msg}}%;"></div>
+                                <div class="progess-bar" style="width: {{ data_user.count_msg.2 }}%;"></div>
                             </div>
-                            <p>ETH (USD) = $149.25 (-12.24%)</p>
+                            <p>BTC (USD) = $6,316.88 {{ data_user.count_msg.2 }}</p>
                         </div>
 
                     </div>
                 </div><!-- Top Report End -->
-                {% endfor %}
 
+                <!-- Top Report Start -->
+                <div class="col-xlg-3 col-md-6 col-12 mb-30">
+                    <div class="top-report top-report-2">
 
+                        <!-- Icon -->
+                        <div class="icon"><img src="{% static 'server/assets/images/icons/cryptocurrency-top-sale-report-2.png' %}" alt=""></div>
+
+                        <!-- Head -->
+                        <div class="head">
+                            <h4>Доступно диалогов</h4>
+                        </div>
+
+                        <!-- Content -->
+                         <div class="content">
+                            <h2>{{ data_user.count_dialog.0 }} из {{ data_user.count_dialog.1 }}</h2>
+                        </div>
+
+                        <!-- Footer -->
+                        <div class="footer">
+                            <div class="progess">
+                                <div class="progess-bar" style="width: {{ data_user.count_dialog.2 }}%;"></div>
+                            </div>
+                            <p>BTC (USD) = $6,316.88 {{ data_user.count_dialog.2 }}</p>
+                        </div>
+
+                    </div>
+                </div><!-- Top Report End -->
+
+                <!-- Top Report Start -->
+                <div class="col-xlg-3 col-md-6 col-12 mb-30">
+                    <div class="top-report top-report-2">
+
+                        <!-- Icon -->
+                        <div class="icon"><img src="{% static 'server/assets/images/icons/cryptocurrency-top-sale-report-3.png' %}" alt=""></div>
+
+                        <!-- Head -->
+                        <div class="head">
+                            <h4>Доступно обновлений ключей</h4>
+                        </div>
+
+                      <!-- Content -->
+                         <div class="content">
+                            <h2>{{ data_user.count_change_key.0 }} из {{ data_user.count_change_key.1 }}</h2>
+                        </div>
+
+                        <!-- Footer -->
+                        <div class="footer">
+                            <div class="progess">
+                                <div class="progess-bar" style="width: {{ data_user.count_change_key.2 }}%;"></div>
+                            </div>
+                            <p>BTC (USD) = $6,316.88 {{ data_user.count_change_key.2 }}</p>
+                        </div>
+                    </div>
+                </div><!-- Top Report End -->
+
+                <!-- Top Report Start -->
+                <div class="col-xlg-3 col-md-6 col-12 mb-30">
+                    <div class="top-report top-report-2">
+
+                        <!-- Icon -->
+                        <div class="icon"><img src="{% static 'server/assets/images/icons/cryptocurrency-top-sale-report-4.png' %}" alt=""></div>
+
+                        <!-- Head -->
+                        <div class="head">
+                            <h4>Доступно обновлений тарифа</h4>
+                        </div>
+
+                         <!-- Content -->
+                         <div class="content">
+                            <h2>{{ data_user.count_update_tariff.0 }} из {{ data_user.count_update_tariff.1 }}</h2>
+                        </div>
+
+                        <!-- Footer -->
+                        <div class="footer">
+                            <div class="progess">
+                                <div class="progess-bar" style="width: {{ data_user.count_update_tariff.2 }}%;"></div>
+                            </div>
+                            <p>BTC (USD) = $6,316.88 {{ data_user.count_update_tariff.2 }}</p>
+                        </div>
+                    </div>
+
+                </div><!-- Top Report End -->
             </div><!-- Top Report Wrap End -->
 
-            <div class="row mbn-30">
 
+
+            <div class="row mbn-30">
                 <!-- Revenue Statistics Chart Start -->
                 <div class="col-12 mb-30">
                     <div class="box">
                         <div class="box-head">
-                            <h4 class="title">Revenue Statistics</h4>
+                            <h4 class="title">Моя статистика</h4>
                         </div>
                         <div class="box-body">
 
                             <div class="chart-legends-1 row">
                                 <div class="chart-legend-1 col-12 col-sm-6 col-md-3">
                                     <h5>Мои сообщение</h5>
-                                    <h3 class="text-secondary">1543 шт</h3>
+                                    <h3 class="text-secondary">{{ data_user.count_msg_user }} шт</h3>
                                 </div>
                                 <div class="chart-legend-1 col-12 col-sm-6 col-md-3">
                                     <h5>Скорость отправки сообщений</h5>
-                                    <h3 class="text-primary">12 сек</h3>
+                                    <h3 class="text-primary">{{ data_user.delay }} сек</h3>
                                 </div>
                                 <div class="chart-legend-1 col-12 col-sm-6 col-md-3">
                                     <h5>Среднее кол-во символов</h5>
-                                    <h3 class="text-warning">120000 шт</h3>
+                                    <h3 class="text-warning">{{ data_user.mess_ln }} шт</h3>
                                 </div>
                                 <div class="chart-legend-1 col-12 col-sm-6 col-md-3">
                                     <h5>Степень защиты</h5>
-                                    <h3 class="text-info">4</h3>
+                                    <h3 class="text-info">{{ data_user.deg_protection }} уровень</h3>
                                 </div>
                             </div>
 

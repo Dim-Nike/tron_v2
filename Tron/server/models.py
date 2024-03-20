@@ -81,7 +81,8 @@ class TariffBalances(models.Model):
         verbose_name = 'Баланс тарифа'
         verbose_name_plural = 'Балансы тарифов'
 
-    count_change_key = models.IntegerField(verbose_name='Количество смены ключа')
+    count_msg_user = models.IntegerField(verbose_name='Количество отправленных сообщений', default=0)
+    count_change_key = models.IntegerField(verbose_name='Количество смены ключа', default=0)
     count_msg = models.IntegerField(verbose_name='Количество сообщений')
     count_dialog = models.IntegerField(verbose_name='Количество диалогов', default=1)
     count_update_tariff = models.IntegerField(verbose_name='Количество обновления тарифа')
