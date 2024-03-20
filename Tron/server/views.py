@@ -65,6 +65,11 @@ def show_register(req):
                         count_dialog=user.flesh.tariff.count_dialog,
                         count_update_tariff=user.flesh.tariff.count_update_tariff
                     )
+                    user.payments.add(Payment.objects.create(
+                        category='purchase',
+                        dsc=f'Приобретение новой флешки с тарифом "{user.flesh.tariff.name}"',
+                        price=user.flesh.price
+                    ))
                     user.save()
                     return redirect('login')
             else:
@@ -113,3 +118,16 @@ def show_index(req):
     }
 
     return render(req, 'server/index-crypto.html', data)
+
+
+@login_required
+def show_profile(req):
+    payments = req.user.payments.all()
+
+    data = {
+        'user': req.user,
+        'payments': payments
+    }
+    return render(req, 'server/author-profile.html', data)
+
+

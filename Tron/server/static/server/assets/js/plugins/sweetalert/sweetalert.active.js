@@ -17,7 +17,7 @@
         $('.sweetalert-success').on('click', function(){
             swal({
                 title: "Good job!",
-                text: "You clicked the button!", 
+                text: "You clicked the button!",
                 icon: "success"
             });
         });
@@ -27,15 +27,15 @@
     if( $('.sweetalert-warning').length ) {
         $('.sweetalert-warning').on('click', function(){
             swal({
-                title: "Are you sure?",
-                text: "You won't be able to revert this!", 
+                title: "Тут что-то будет?",
+                text: "Ну что теперь?",
                 icon: "warning",
                 buttons: {
                     confirm: {
-                        text: "Yes Delete It",
+                        text: "А что теперь?",
                         value: true,
                         visible: true,
-                        className: "button button-warning",
+                        className: "button",
                         closeModal: true
                     },
                     cancel: {

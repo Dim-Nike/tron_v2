@@ -1,0 +1,263 @@
+{% extends 'server/technical/pattern.html' %}
+{% load static %}
+
+{% block title %}{{ data.title }}{% endblock %}
+    {% block content %}
+            <div class="row mbn-50">
+
+                <!--Author Top Start-->
+                <div class="col-12 mb-50">
+                    <div class="author-top">
+                        <div class="inner">
+                            <div class="author-profile">
+                                <div class="image">
+                                    <img src="{% static 'server/assets/images/avatar/profile.jpg' %}" class="d-none" alt="">
+                                    <h2>MH</h2>
+                                    <button class="edit"><i class="zmdi zmdi-cloud-upload"></i>Change Image</button>
+                                </div>
+                                <div class="info">
+                                    <h5>{{ user.username }}</h5>
+                                    <span>UI UX Designer</span>
+                                    <a href="#" class="edit"><i class="zmdi zmdi-edit"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Author Top End-->
+
+                <!--Timeline / Activities Start-->
+                <div class="col-xlg-8 col-12 mb-50">
+                    <div class="box">
+
+                        <div class="box-head">
+                            <h3 class="title">Timeline / Activities</h3>
+                        </div>
+
+                        <div class="box-body">
+
+                            <div class="timeline-wrap row mbn-50">
+
+                                <div class="col-12 mb-50"><span class="timeline-date">Как пользоваться платформой?</span></div>
+
+                                <div class="col-12 mb-50">
+                                    <ul class="timeline-list">
+
+                                        <li>
+                                            <span class="icon"><i class="zmdi zmdi-receipt"></i></span>
+                                            <div class="details">
+                                                <h5 class="title"><a href="#">Синхранизируем флешку с сервером</a></h5>
+                                                <div class="content">
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id dolores, assumenda quaerat inventore atque dolore sapiente doloribus iusto quisquam ullam autem labore, laborum beatae repudiandae! Recusandae ullam cumque, non temporibus?</p>
+                                                </div>
+                                                <span class="time">5 min ago</span>
+                                            </div>
+                                        </li>
+
+                                       <li>
+                                            <span class="icon"><i class="zmdi zmdi-receipt"></i></span>
+                                            <div class="details">
+                                                <h5 class="title"><a href="#">Синхранизируем флешку с сервером</a></h5>
+                                                <div class="content">
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id dolores, assumenda quaerat inventore atque dolore sapiente doloribus iusto quisquam ullam autem labore, laborum beatae repudiandae! Recusandae ullam cumque, non temporibus?</p>
+                                                </div>
+                                                <span class="time">5 min ago</span>
+                                            </div>
+                                        </li>
+
+                                        <li>
+                                            <span class="icon"><i class="zmdi zmdi-receipt"></i></span>
+                                            <div class="details">
+                                                <h5 class="title"><a href="#">Синхранизируем флешку с сервером</a></h5>
+                                                <div class="content">
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id dolores, assumenda quaerat inventore atque dolore sapiente doloribus iusto quisquam ullam autem labore, laborum beatae repudiandae! Recusandae ullam cumque, non temporibus?</p>
+                                                </div>
+                                                <span class="time">5 min ago</span>
+                                            </div>
+                                        </li>
+
+                                        <li>
+                                            <span class="icon"><i class="zmdi zmdi-receipt"></i></span>
+                                            <div class="details">
+                                                <h5 class="title"><a href="#">Синхранизируем флешку с сервером</a></h5>
+                                                <div class="content">
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id dolores, assumenda quaerat inventore atque dolore sapiente doloribus iusto quisquam ullam autem labore, laborum beatae repudiandae! Recusandae ullam cumque, non temporibus?</p>
+                                                </div>
+                                                <span class="time">5 min ago</span>
+                                            </div>
+                                        </li>
+
+                                        <li>
+                                            <span class="icon"><i class="zmdi zmdi-receipt"></i></span>
+                                            <div class="details">
+                                                <h5 class="title"><a href="#">Синхранизируем флешку с сервером</a></h5>
+                                                <div class="content">
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id dolores, assumenda quaerat inventore atque dolore sapiente doloribus iusto quisquam ullam autem labore, laborum beatae repudiandae! Recusandae ullam cumque, non temporibus?</p>
+                                                </div>
+                                                <span class="time">5 min ago</span>
+                                            </div>
+                                        </li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="col-12 mb-50"><span class="timeline-date">Как обновить тариф?</span></div>
+
+                                <div class="col-12 mb-50">
+                                    <ul class="timeline-list">
+
+                                        <li>
+                                            <span class="icon"><i class="zmdi zmdi-receipt"></i></span>
+                                            <div class="details">
+                                                <h5 class="title"><a href="#">Переходим в тариф</a></h5>
+                                                <div class="content">
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id dolores, assumenda quaerat inventore atque dolore sapiente doloribus iusto quisquam ullam autem labore, laborum beatae repudiandae! Recusandae ullam cumque, non temporibus?</p>
+                                                </div>
+                                                <span class="time">at 7pm</span>
+                                            </div>
+                                        </li>
+
+                                       <li>
+                                            <span class="icon"><i class="zmdi zmdi-receipt"></i></span>
+                                            <div class="details">
+                                                <h5 class="title"><a href="#">Переходим в тариф</a></h5>
+                                                <div class="content">
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id dolores, assumenda quaerat inventore atque dolore sapiente doloribus iusto quisquam ullam autem labore, laborum beatae repudiandae! Recusandae ullam cumque, non temporibus?</p>
+                                                </div>
+                                                <span class="time">at 7pm</span>
+                                            </div>
+                                        </li>
+
+                                    </ul>
+                                </div>
+
+                                 <div class="col-12 mb-50"><span class="timeline-date">Как приобрести новый тариф?</span></div>
+                                 <div class="col-12 mb-50">
+                                    <ul class="timeline-list">
+
+                                        <li>
+                                            <span class="icon"><i class="zmdi zmdi-receipt"></i></span>
+                                            <div class="details">
+                                                <h5 class="title"><a href="#">Переходим в тариф</a></h5>
+                                                <div class="content">
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id dolores, assumenda quaerat inventore atque dolore sapiente doloribus iusto quisquam ullam autem labore, laborum beatae repudiandae! Recusandae ullam cumque, non temporibus?</p>
+                                                </div>
+                                                <span class="time">at 7pm</span>
+                                            </div>
+                                        </li>
+
+                                       <li>
+                                            <span class="icon"><i class="zmdi zmdi-receipt"></i></span>
+                                            <div class="details">
+                                                <h5 class="title"><a href="#">Переходим в тариф</a></h5>
+                                                <div class="content">
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id dolores, assumenda quaerat inventore atque dolore sapiente doloribus iusto quisquam ullam autem labore, laborum beatae repudiandae! Recusandae ullam cumque, non temporibus?</p>
+                                                </div>
+                                                <span class="time">at 7pm</span>
+                                            </div>
+                                        </li>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                <!--Timeline / Activities End-->
+
+                <!--Right Sidebar Start-->
+                <div class="col-xlg-4 col-12 mb-50">
+                    <div class="row mbn-30">
+
+                        <!--Author Information Start-->
+                        <div class="col-xlg-12 col-lg-6 col-12 mb-30">
+                            <div class="box">
+                                <div class="box-head">
+                                    <h3 class="title">Author Information</h3>
+                                </div>
+                                <div class="box-body">
+                                    <div class="form">
+                                        <form action="#">
+                                            <div class="row row-10 mbn-20">
+                                                <div class="col-sm-6 col-12 mb-20"><input type="text" class="form-control" value="Madison"></div>
+                                                <div class="col-sm-6 col-12 mb-20"><input type="text" class="form-control" value="Howard"></div>
+                                                <div class="col-sm-6 col-12 mb-20"><input type="text" class="form-control input-date-single" value="02/13/2018"></div>
+                                                <div class="col-sm-6 col-12 mb-20"><input type="text" class="form-control" value="(012) 345-6789" data-mask="(999) 999-9999"></div>
+                                                <div class="col-12 mb-20"><input type="email" class="form-control" value="domain@mail.com"></div>
+                                                <div class="col-12 mb-20"><input type="text" class="form-control" value="https//: www.domain.com"></div>
+                                                <div class="col-sm-6 col-12 mb-20"><input type="password" class="form-control" value="password"></div>
+                                                <div class="col-sm-6 col-12 mb-20"><input type="password" class="form-control" value="password"></div>
+                                                <div class="col-12 mt-10 mb-20">
+                                                    <input type="submit" class="button button-primary button-outline" value="Save Changes">
+                                                    <input type="submit" class="button button-danger button-outline" value="Delete Changes">
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!--Author Information End-->
+
+                        <!-- To Do List Start -->
+
+                        <!-- Daily Sale Report Start -->
+                        <div class="col-xlg-12 col-lg-6 col-12 mb-30">
+
+                            <div class="box">
+                                <div class="box-head">
+                                    <h3 class="title">История финансовых операций</h3>
+                                </div>
+                                <div class="box-body">
+                                    <div class="table-responsive">
+                                        <table class="table">
+
+                                            <!-- Table Head Start -->
+                                            <thead>
+                                                <tr>
+                                                    <th>Наименование</th>
+                                                    <th>Комментарий к платежу</th>
+                                                    <th>Стоимость</th>
+                                                </tr>
+                                            </thead><!-- Table Head End -->
+
+                                            <!-- Table Body Start -->
+                                            <tbody>
+                                            {% for el in payments %}
+                                                <tr>
+                                                    {% if el.category == 'update' %}
+                                                        <td class="text-danger fw-600">{{ el.get_category_display  }}</td>
+                                                    {% elif el.category == 'purchase_bonuses' %}
+                                                        <td class="text-warning fw-600">{{ el.get_category_display  }}</td>
+                                                    {% elif el.category == 'purchase' %}
+                                                        <td class="text-success fw-600">{{ el.get_category_display  }}</td>
+                                                    {% endif %}
+
+                                                    <td>
+                                                        <p>{{ el.dsc }}</p>
+                                                    </td>
+                                                    <td><span class="text-success d-flex justify-content-between fw-600">{{ el.price }} ₽<span class="tippy ml-10" data-tippy-content="Покупка была завершена <br/> {{ el.date }}."><i class="zmdi zmdi-info-outline"></i></span></span></td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody><!-- Table Body End -->
+
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div><!-- Daily Sale Report End -->
+
+                    </div>
+                </div>
+                <!--Right Sidebar End-->
+
+            </div>
+
+        </div><!-- Content Body End -->
+
+      {% endblock %}

@@ -47,7 +47,7 @@
 
                     <!-- Header Logo (Header Left) Start -->
                     <div class="header-logo col-auto">
-                        <a href="index.html">
+                        <a href="{% url 'home' %}">
                             <img src="{% static 'server/assets/images/logo/logo.png' %}" alt="">
                             <img src="{% static 'server/assets/images/logo/logo-light.png' %}" class="logo-light" alt="">
                         </a>
@@ -265,7 +265,7 @@
                                             </div>
                                             <div class="body">
                                                 <ul>
-                                                    <li><a href="#"><i class="zmdi zmdi-account"></i>Profile</a></li>
+                                                    <li><a href="{% url 'profile' %}"><i class="zmdi zmdi-account"></i>Profile</a></li>
                                                     <li><a href="#"><i class="zmdi zmdi-email-open"></i>Inbox</a></li>
                                                     <li><a href="#"><i class="zmdi zmdi-wallpaper"></i>Activity</a></li>
                                                 </ul>
@@ -407,7 +407,7 @@
                             <ul class="side-header-sub-menu">
                                 <li><a href="login.html"><span>login</span></a></li>
                                 <li><a href="register.html"><span>register</span></a></li>
-                                <li><a href="author-profile.html"><span>Profile</span></a></li>
+                                <li><a href="{% url 'profile' %}"><span>Profile</span></a></li>
                             </ul>
                         </li>
                         <li class="has-sub-menu"><a href="#"><i class="ti-layers"></i> <span>Pages</span></a>

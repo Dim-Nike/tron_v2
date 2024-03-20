@@ -16,4 +16,6 @@ admin.site.register(User)
 admin.site.register(Flesh, FleshAdmin)
 admin.site.register(Tariff, TariffAdmin)
 admin.site.register(TariffBalances)
+admin.site.register(Payment)
+admin.site.register(KeyIdentification)
 

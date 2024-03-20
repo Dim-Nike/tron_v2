@@ -8,5 +8,6 @@ urlpatterns = [
     path('login', show_login, name='login'),
     path('register', show_register, name='register'),
     path('chat', show_chat, name='chat'),
+    path('profile', show_profile, name='profile')
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -5,8 +5,9 @@
 {% block title %}{{ data.title }}{% endblock %}
 {% block content %}
                 <!-- Page Button Group Start -->
-                <button class="sweetalert sweetalert-success button button-success">Перейти в чат</button>
-                <button class="sweetalert sweetalert-warning button button-warning">Настроить доступ индификатора</button>
+
+                <button class="sweetalert sweetalert-warning button button-success">Перейти в чат</button>
+                <a href="#" class="button button-warning">Настроить доступ индификатора</a>
 
 
 
@@ -263,9 +264,7 @@
 
 {% endblock %}
 <script>
-$('.sweetalert-basic').on('click', function(){
-    swal("Hello world!");
-});
+swal("Hello world!");
 </script>
 
 </body>
