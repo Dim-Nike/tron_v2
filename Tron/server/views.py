@@ -8,7 +8,12 @@ from .models import *
 from .forms import RegistrationForm, LoginForm
 
 
+def pattern_view(req):
+    data = {
+        'user':  req.user
+    }
 
+    return render(req, 'server/technical/pattern.html', data)
 
 def show_chat(req):
 
@@ -85,6 +90,12 @@ def show_register(req):
 
 @login_required
 def show_index(req):
+    key_identification = req.user.identification_dialog
+    if req.user.identification_dialog is not None:
+        is_check_key_identification = True
+    else:
+        is_check_key_identification = False
+
     data_user = {
         'count_msg': [
             req.user.balance_tariff.count_msg,
@@ -107,8 +118,13 @@ def show_index(req):
             req.user.flesh.tariff.count_update_tariff,
             req.user.balance_tariff.count_update_tariff*1000 // req.user.flesh.tariff.count_update_tariff*1000 // 10000
         ],
-        'delay': req.user.flesh.tariff.delay, 'mess_ln': req.user.flesh.tariff.mess_ln, 'deg_protection': req.user.flesh.tariff.deg_protection, 'count_msg_user': req.user.balance_tariff.count_msg_user
+        'delay': req.user.flesh.tariff.delay, 'mess_ln': req.user.flesh.tariff.mess_ln,
+        'deg_protection': req.user.flesh.tariff.deg_protection,
+        'count_msg_user': req.user.balance_tariff.count_msg_user,
+        'is_check_key_identification': is_check_key_identification
     }
+    print(is_check_key_identification)
+    # is_check_key_identification =1
 
 
     data = {

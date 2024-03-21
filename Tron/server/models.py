@@ -107,8 +107,7 @@ class Payment(models.Model):
     price = models.IntegerField(verbose_name='Стоимость', default=0)
     date = models.DateTimeField(verbose_name='Дата операции', auto_now_add=True)
 
-# text-danger
-# text-warning
+
 class KeyIdentification(models.Model):
     class Meta:
         verbose_name = 'Индификация ключа'

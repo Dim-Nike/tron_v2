@@ -5,10 +5,12 @@
 {% block title %}{{ data.title }}{% endblock %}
 {% block content %}
                 <!-- Page Button Group Start -->
-
-                <button class="sweetalert sweetalert-warning button button-success">Перейти в чат</button>
-                <a href="#" class="button button-warning">Настроить доступ индификатора</a>
-
+            {% if data_user.is_check_key_identification %}
+                <a href="{% url 'chat' %}" class="button button-success">Перейти в чат</a>
+            {% else %}
+                <button class="sweetalert sweetalert-basic button button-danger">Перейти в чат</button>
+            {% endif %}
+            <a href="#" class="button button-warning">Настроить доступ индификатора</a>
 
 
             <!-- Top Report Wrap Start -->

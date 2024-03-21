@@ -6,8 +6,8 @@
     if( $('.sweetalert-basic').length ) {
         $('.sweetalert-basic').on('click', function(){
             swal({
-                title: "Here's the title!",
-                text: "Here's the Lorem ipsum text!"
+                title: "Ошибка подключения!",
+                text: "Авторизуйтесь для перехода в чат!"
             });
         });
     }

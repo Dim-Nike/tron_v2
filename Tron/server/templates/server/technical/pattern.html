@@ -247,21 +247,20 @@
 
                                     <!--User-->
                                     <li class="adomx-dropdown col-auto">
-                                        <a class="toggle" href="#">
+                                        <a class="toggle" href="{% url 'profile' %}">
                                             <span class="user">
                                         <span class="avatar">
                                             <img src="{% static 'server/assets/images/avatar/avatar-1.jpg' %}" alt="">
                                             <span class="status"></span>
                                             </span>
-                                            <span class="name">Madison Howard</span>
+                                            <span class="name">{{ user.username }}</span>
                                             </span>
                                         </a>
 
                                         <!-- Dropdown -->
                                         <div class="adomx-dropdown-menu dropdown-menu-user">
                                             <div class="head">
-                                                <h5 class="name"><a href="#">Madison Howard</a></h5>
-                                                <a class="mail" href="#">mailnam@mail.com</a>
+                                                <h5 class="name"><a href="#">{{ user.username }}</a></h5>
                                             </div>
                                             <div class="body">
                                                 <ul>
