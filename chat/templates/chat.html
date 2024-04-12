@@ -1,0 +1,147 @@
+{% extends 'server/technical/pattern.html' %}
+{% load static %}
+<!doctype html>
+
+{% block title %}{{ data.title }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <!-- Chat App Start -->
+        <div class="col-12">
+            <div class="chat-app-wrap">
+
+                <button class="chat-contacts-open"><i class="zmdi zmdi-accounts-alt"></i></button>
+
+                <!--Chat Contacts Start-->
+                <div class="chat-contacts">
+
+                    <button class="chat-contacts-close"><i class="zmdi zmdi-close"></i></button>
+
+                    <!--Chat Contact Search Start-->
+                    <div class="contact-search-form">
+                        <form action="#">
+                            <input type="text" placeholder="Search Contact">
+                        </form>
+                    </div>
+                    <!--Chat Contact Search End-->
+
+                    <!--Contact List Start-->
+                    <ul class="chat-contact-list custom-scroll">
+                        <!-- You can dynamically populate contact list if needed -->
+                    </ul>
+                    <!--Contact List End-->
+
+                </div>
+                <!--Chat Contacts End-->
+
+                <!--Chat Active Contact Start-->
+                <div class="chat-active-contact">
+                    <div class="chat-contact">
+                        <div class="image"><img src="{% static 'server/assets/images/avatar/avatar-1.jpg' %}" alt=""></div>
+                        <div class="info">
+                            <h5>{{ room_name }}</h5>
+                            <!-- Add last seen info if needed -->
+                        </div>
+                    </div>
+                    <!-- Add chat contact actions if needed -->
+                </div>
+                <!--Chat Active Contact End-->
+
+                <!-- Chat Start -->
+                <div class="chat-wrap custom-scroll mr-0">
+                    <ul class="chat-list" id="id_chat_item_container">
+                        {% for message in messages %}
+                        <li>
+                            <div class="chat">
+                                <div class="head">
+                                    <h5>{{ message.user.username }}</h5>
+                                    <span>{{ message.created_at }}</span>
+                                    <!-- Add replay button if needed -->
+                                </div>
+                                <div class="body">
+                                    <!-- Display message content -->
+                                    <div class="content">
+                                        <p>{{ message.text }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    <!-- Add pass div if needed -->
+                </div>
+
+                <div class="chat-submission">
+                    <form action="#">
+                        <input type="text" id="id_message_send_input" placeholder="Type something">
+                        <div class="buttons">
+                            <!-- Add file upload button if needed -->
+                            <button id="id_message_send_button" class="submit button button-box button-round button-primary"><i class="zmdi zmdi-mail-send"></i></button>
+                        </div>
+                    </form>
+                </div><!-- Chat End -->
+
+            </div>
+        </div><!-- Chat End Start -->
+    </div>
+
+
+    <script>
+        function updateBlockSize() {
+            var windowHeight = window.innerHeight;
+            var existingBlocks = document.querySelectorAll('.chat');
+            var existingBlocksHeight = 0;
+            existingBlocks.forEach(function (block) {
+                existingBlocksHeight += block.offsetHeight;
+
+            });
+            var remainingHeight = windowHeight - existingBlocksHeight - 0.55 * windowHeight;
+            var yourBlock = document.querySelector('.pass');
+            yourBlock.style.height = remainingHeight + 'px';
+        }
+        window.addEventListener('load', updateBlockSize);
+        window.addEventListener('resize', updateBlockSize);
+    </script>
+    <script>
+    const chatSocket = new WebSocket("ws://" + window.location.host + "/ws/chat/{{ room_name }}/");
+
+    // Функция для отправки сообщения
+    function sendMessage(message) {
+        chatSocket.send(JSON.stringify({
+            'message': message
+        }));
+    }
+
+    // Обработчик события нажатия Enter в поле ввода
+    document.querySelector("#id_message_send_input").addEventListener("keyup", function(event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            const messageInput = document.querySelector("#id_message_send_input").value.trim();
+            if (messageInput !== "") {
+                sendMessage(messageInput);
+                document.querySelector("#id_message_send_input").value = "";
+            }
+        }
+    });
+
+    // Обработчик события нажатия кнопки отправки сообщения
+    document.querySelector("#id_message_send_button").addEventListener("click", function(event) {
+        event.preventDefault();
+        const messageInput = document.querySelector("#id_message_send_input").value.trim();
+        if (messageInput !== "") {
+            sendMessage(messageInput);
+            document.querySelector("#id_message_send_input").value = "";
+        }
+    });
+
+    // Обработчик события получения сообщения от сервера
+    chatSocket.onmessage = function(event) {
+        const data = JSON.parse(event.data);
+        const messageContainer = document.querySelector("#id_chat_item_container");
+        const newMessageElement = document.createElement("li");
+        newMessageElement.innerHTML = '<div class="chat"><div class="head"><h5>' + data.username + '</h5></div><div class="body"><div class="content"><p>' + data.message + '</p></div></div></div>';
+        messageContainer.appendChild(newMessageElement);
+    };
+</script>
+{% endblock %}
+

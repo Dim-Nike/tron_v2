@@ -1,0 +1,163 @@
+{% extends 'server/technical/pattern.html' %}
+{% load static %}
+
+{% block title %}{{ data.title }}{% endblock %}
+    {% block content %}
+            <!--Default Alert Start-->
+            {% if info_user == 'connection_successful' %}
+                <div class="alert alert-success" role="alert">
+                    <strong>Подключено!</strong> Вы подключились к чат серверу!
+                    <button class="close" data-dismiss="alert"><i class="zmdi zmdi-close"></i></button>
+                </div>
+                {% elif info_user == 'connection_error' %}
+                <div class="alert alert-danger" role="alert">
+                    <strong>Ошибка подключения!</strong> Проверьте правильность введенных ключей
+                    <button class="close" data-dismiss="alert"><i class="zmdi zmdi-close"></i></button>
+                </div>
+                {% elif info_user == 'add_new_obj' %}
+                <div class="alert alert-primary" role="alert">
+                    <strong>Создано новое подключение!</strong> Дождитесь пока ваш собеседник подключится к вашему чат серверу
+                    <button class="close" data-dismiss="alert"><i class="zmdi zmdi-close"></i></button>
+                </div>
+                {% elif info_user == 'add_error' %}
+                <div class="alert alert-primary" role="alert">
+                    <strong>Ошибка нового подключения!</strong>Недопустимый ввод токена аунтификации чат сервера, попробуйте его поменять
+                    <button class="close" data-dismiss="alert"><i class="zmdi zmdi-close"></i></button>
+                </div>
+                {% elif info_user == 'start_chat_error' %}
+                <div class="alert alert-info" role="alert">
+                    <strong>Ошибка подключения!</strong> Невозможно подключиться к чат серверу два раза от одного лица.
+                    <button class="close" data-dismiss="alert"><i class="zmdi zmdi-close"></i></button>
+                </div>
+            {% endif %}
+            <!--Default Alert End-->
+            <div class="row mbn-10">
+
+
+
+                <!--Default Form Start-->
+
+                <div class="col-lg-6 col-12 mb-30">
+                    <div class="box">
+                        <div class="box-head">
+                            <h4 class="title">Регистрация аунтификации чат сервера</h4>
+                        </div>
+                        <div class="box-body">
+                            <form action="#" method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="row mbn-20">
+                                    <div class="col-12 mb-20">
+                                        {{ form.token.label_tag }}
+                                        {{ form.token }}
+                                        {% for error in form.token.errors %}
+                                            <span class="text-danger">{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="col-12 mb-20">
+                                        {{ form.first_key.label_tag }}
+                                        {{ form.first_key }}
+                                        {% for error in form.first_key.errors %}
+                                            <span class="text-danger">{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="col-12 mb-20">
+                                        {{ form.second_key.label_tag }}
+                                        {{ form.second_key }}
+                                        {% for error in form.second_key.errors %}
+                                            <span class="text-danger">{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="col-12 mb-20">
+                                        {{ form.image.label_tag }}
+                                        {{ form.image }}
+                                    </div>
+                                    <div class="col-12 mb-20">
+                                        <button type="submit" class="button button-danger">Обновить ключи</button>
+                                        {% if info_user == 'update' %}
+                                            <button type="submit" class="button button-primary">Обновить</button>
+                                        {% else %}
+                                            <button type="submit" class="button button-primary">Сохранить</button>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!--Default Form End-->
+                <!--Default El Start-->
+
+                <div class="col-lg-6 col-12 mb-30">
+                    <div class="box">
+                        <div class="box-head">
+                            <h4 class="title">Vertical Tab With Icon</h4>
+                        </div>
+                        <div class="box-body">
+                            <div class="row mbn-15">
+                                <div class="col-md-4 col-12 mb-15">
+                                    <ul class="nav nav-tabs flex-column">
+                                        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#idf_dialog"><i class="zmdi zmdi-home"></i>  Аунтификация</a></li>
+                                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#f_key"><i class="zmdi zmdi-account"></i>  Первый ключ</a></li>
+                                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#s_key"><i class="zmdi zmdi-email"></i>  Второй ключ</a></li>
+                                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#img"><i class="zmdi zmdi-email"></i>  Изображение</a></li>
+                                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#main_key"><i class="zmdi zmdi-email"></i>  Ключи</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-8 col-12 mb-15">
+                                    <div class="tab-content">
+                                        <div class="tab-pane fade show active" id="idf_dialog">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus cumque corporis et hic obcaecati ipsum consequatur nostrum, explicabo praesentium saepe porro expedita iure suscipit harum illum quas esse quo fugiat vel temporibus ad ipsam! Laudantium asperiores ad at saepe illum.</p>
+                                        </div>
+                                        <div class="tab-pane fade" id="f_key">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus cumque corporis et hic obcaecati ipsum consequatur nostrum, explicabo praesentium saepe porro expedita iure suscipit harum illum quas esse quo fugiat vel temporibus ad ipsam! Laudantium asperiores ad at saepe illum.</p>
+                                        </div>
+                                        <div class="tab-pane fade" id="s_key">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus cumque corporis et hic obcaecati ipsum consequatur nostrum, explicabo praesentium saepe porro expedita iure suscipit harum illum quas esse quo fugiat vel temporibus ad ipsam! Laudantium asperiores ad at saepe illum.</p>
+                                        </div>
+                                        <div class="tab-pane fade" id="img">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus cumque corporis et hic obcaecati ipsum consequatur nostrum, explicabo praesentium saepe porro expedita iure suscipit harum illum quas esse quo fugiat vel temporibus ad ipsam! Laudantium asperiores ad at saepe illum.</p>
+                                        </div>
+                                        <div class="tab-pane fade" id="main_key">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus cumque corporis et hic obcaecati ipsum consequatur nostrum, explicabo praesentium saepe porro expedita iure suscipit harum illum quas esse quo fugiat vel temporibus ad ipsam! Laudantium asperiores ad at saepe illum.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xlg-12 col-md-6 col-12 mb-60">
+                    <div class="top-report">
+
+                        <!-- Head -->
+                        <div class="head">
+                            <h4>Total Visitor</h4>
+                            <a href="#" class="view"><i class="zmdi zmdi-eye"></i></a>
+                        </div>
+
+                        <!-- Content -->
+                        <div class="content">
+                            <h5>Todays</h5>
+                            <h2>100,560.00</h2>
+                        </div>
+
+                        <!-- Footer -->
+                        <div class="footer">
+                            <div class="progess">
+                                <div class="progess-bar" style="width: 92%;"></div>
+                            </div>
+                            <p>92% of unique visitor</p>
+                        </div>
+
+                    </div>
+                </div>
+                <!--Default El End-->
+
+            </div>
+
+
+
+
+
+
+{% endblock %}
