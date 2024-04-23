@@ -110,7 +110,11 @@
                                                 <ul>
                                                     <li>
                                                         {% if user.status_idf == 'connected'%}
-                                                        <a href="{{ room }}">
+
+                                                            <a href="{% url 'room' room_name=room_name %}">
+
+
+                                                        {#                                                        <a href="{% url 'room' room_name=room_name %}">#}
                                                             <div class="image"><img src="{% static 'server/assets/images/avatar/avatar-2.jpg' %}" alt=""></div>
                                                             <div class="content">
                                                                 <h6>Пользователь: {{ pari_user.usernamepyt }}</h6>

@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
@@ -249,12 +251,15 @@ def show_form_idf(req):
                         )
                         room_name = ''.join(secrets.choice(string.ascii_letters + string.digits) for _ in range(20))
 
+
+# ----------------------------------------------------------------------------------------------------------
                         room = Room.objects.create(
                             name=room_name,
-                            host=obj_idf_dialog,
+                            host=ObjIdfDialog.objects.create(),
                             created_at=datetime.now(),
                             is_use=True
                         )
+# ----------------------------------------------------------------------------------------------------------
                         new_obj_idf_dialog = ObjIdfDialog.objects.create(
                             status='waiting',
                             is_use=False,

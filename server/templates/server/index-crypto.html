@@ -312,7 +312,12 @@
                     </div>
                     <div class="modal-footer">
                         <button class="button button-danger" data-dismiss="modal">Отмена</button>
-                        <a href="{{ room }}" class="button button-success">Начать общение</a>
+{% if room_name %}
+
+
+
+                        <a href="{% url 'room' room_name=room_name %}"class="button button-success">Начать общение</a>
+{% endif %}
                     </div>
                 </div>
             </div>
