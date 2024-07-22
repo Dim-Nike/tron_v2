@@ -249,16 +249,6 @@ def show_form_idf(req):
                             image_key=req.FILES['image'],
                             is_active=True
                         )
-                        room_name = ''.join(secrets.choice(string.ascii_letters + string.digits) for _ in range(20))
-
-
-# ----------------------------------------------------------------------------------------------------------
-                        room = Room.objects.create(
-                            name=room_name,
-                            host=ObjIdfDialog.objects.create(),
-                            created_at=datetime.now(),
-                            is_use=True
-                        )
 # ----------------------------------------------------------------------------------------------------------
                         new_obj_idf_dialog = ObjIdfDialog.objects.create(
                             status='waiting',
