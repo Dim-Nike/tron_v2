@@ -1,9 +1,9 @@
-from Tron.server.scripts.encrypte_v1 import *
-from Tron.server.scripts.decoding import *
+from encrypte_v1 import *
+from decoding import *
 test_de_msg = []
 test_de_f_key = []
 test_de_s_key = []
-test_msg =  [
+test_msg = [
     "Широкая электрификация южных губерний даст мощный толчок развитию сельского хозяйства.",
     "Ждем чуда, когда же он придет?",
     "Жук целует щеку дивной красавицы.",
@@ -39,7 +39,7 @@ test_s_key = [str(i) for i in range(101)]
 
 print('--- Проверка шифровки сообщения ---')
 for i, el_msg in enumerate(test_msg):
-    msg_test = en_msg(msg_user=el_msg, ESRS=ESRS, f_key=test_f_key[0], img_path='/home/trigger/Рабочий стол/КБССК.png',
+    msg_test = en_msg(msg_user=el_msg, ESRS=ESRS, f_key=test_f_key[0], img_path=r'C:\Users\User\Desktop\ИП Хорошко М.png',
            s_key=test_s_key[0],
            esrs_number=ERSR_number, noise_list=noise_list)
     test_de_msg.append(msg_test)
@@ -49,7 +49,7 @@ print(test_de_msg)
 
 print('Проверка на корректность первого ключа')
 for i, el_f_key in enumerate(test_f_key):
-    f_key_test = en_msg(msg_user=test_msg[0], ESRS=ESRS, f_key=el_f_key, img_path='/home/trigger/Рабочий стол/КБССК.png',
+    f_key_test = en_msg(msg_user=test_msg[0], ESRS=ESRS, f_key=el_f_key, img_path=r'C:\Users\User\Desktop\ИП Хорошко М.png',
            s_key=test_s_key[0],
            esrs_number=ERSR_number, noise_list=noise_list)
     test_de_f_key.append(f_key_test)
@@ -57,7 +57,7 @@ for i, el_f_key in enumerate(test_f_key):
 
 print('Проверка на корректность второго ключа')
 for i, el_s_key in enumerate(test_s_key):
-    s_key_test = en_msg(msg_user=test_msg[0], ESRS=ESRS, f_key=test_f_key[0], img_path='/home/trigger/Рабочий стол/КБССК.png',
+    s_key_test = en_msg(msg_user=test_msg[0], ESRS=ESRS, f_key=test_f_key[0], img_path=r'C:\Users\User\Desktop\ИП Хорошко М.png',
            s_key=el_s_key,
            esrs_number=ERSR_number, noise_list=noise_list)
     test_de_s_key.append(s_key_test)
@@ -69,24 +69,29 @@ print('--- Проверка дешифрования сообщения ---')
 print('Проверка на корректность сообщение')
 for i, el_msg in enumerate(test_de_msg):
     new_msg = de_msg(msg_en=el_msg, f_key=test_f_key[0], s_key=test_s_key[0], noise_l=noise_list,
-           image_patch='/home/trigger/Рабочий стол/КБССК.png', esrs_number=ERSR_number, esrs=ESRS)
+           image_patch=r'C:\Users\User\Desktop\ИП Хорошко М.png', esrs_number=ERSR_number, esrs=ESRS)
     if test_msg[i] == new_msg:
-        print(f'Тест {i + 1}/{len(test_s_key)} пройден!')
+        print(f'Тест {i + 1}/{len(test_de_msg)} пройден!')
     else:
-        print('Тест не пройден')
+        print(new_msg)
+        print(f'Тест {i +1}/{len(test_de_msg)} не пройден')
 
 print('Проверка на корректность первого ключа')
 for i, el_f_key in enumerate(test_f_key):
     new_msg = de_msg(msg_en=test_de_f_key[i], f_key=el_f_key, s_key=test_s_key[0], noise_l=noise_list,
-           image_patch='/home/trigger/Рабочий стол/КБССК.png', esrs_number=ERSR_number, esrs=ESRS)
+           image_patch=r'C:\Users\User\Desktop\ИП Хорошко М.png', esrs_number=ERSR_number, esrs=ESRS)
     if test_msg[0] == new_msg:
-        print(f'Тест {i + 1}/{len(test_s_key)} пройден!')
+        print(f'Тест {i + 1}/{len(test_de_f_key)} пройден!')
+    else:
+        print(f'Тест {i +1}/{len(test_de_f_key)} не пройден')
 
 print('Проверка на корректность второго ключа')
 for i, el_s_key in enumerate(test_s_key):
     new_msg = de_msg(msg_en=test_de_s_key[i], f_key=test_f_key[0], s_key=el_s_key, noise_l=noise_list,
-           image_patch='/home/trigger/Рабочий стол/КБССК.png', esrs_number=ERSR_number, esrs=ESRS)
+           image_patch=r'C:\Users\User\Desktop\ИП Хорошко М.png', esrs_number=ERSR_number, esrs=ESRS)
     if test_msg[0] == new_msg:
-        print(f'Тест {i + 1}/{len(test_s_key)} пройден!')
+        print(f'Тест {i + 1}/{len(test_de_s_key)} пройден!')
+    else:
+        print(f'Тест {i +1}/{len(test_de_f_key)} не пройден')
 
 

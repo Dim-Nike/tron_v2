@@ -1,0 +1,148 @@
+{% extends 'server/technical/pattern.html' %}
+{% load static %}
+
+{% block title %}{{ data.title }}{% endblock %}
+    {% block content %}
+{% for el in tariff %}
+<div class="col-12 mb-30">
+                    <div class="box mb-30">
+                        <div class="box-head">
+                            <h4 class="title">Подробное описание тарифа</h4>
+                        </div>
+                        <div class="box-body">
+                            <div class="row mbn-50">
+
+                                <div class="col-lg-6 col-12 mb-50">
+                                    <div class="row mb-10">
+                                        <div class="col-12 mb-20">
+                                            <label class="control-label" for="title">Название лицензии</label>
+                                            <input id="title" type="text" class="form-control" placeholder="{{ el.name }}" disabled />
+                                        </div>
+                                        <div class="col-12 mb-20">
+                                            <label class="control-label" for="message">Описание тарифа</label>
+                                            <textarea class="form-control" id="message" rows="3" placeholder="{{ el.dsc }}" disabled></textarea>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-lg-2 col-md-4 col-12 mb-50">
+                                    <h5 class="sub-title">Тарифная линейка</h5>
+                                    <div class="adomx-checkbox-radio-group" id="toastTypeGroup" >
+                                        {% for licenses in el.LICENSES_FIELD %}
+                                            {% if licenses.0 == el.name_license %}
+                                                <label class="adomx-radio"><input type="radio" name="toasts" value="success" disabled checked /><i class="icon"></i>{{ licenses.1 }}</label>
+                                            {% else %}
+                                                <label class="adomx-radio"><input type="radio" name="toasts" value="info" disabled /> <i class="icon"></i>{{ licenses.1 }}</label>
+                                            {% endif %}
+                                        {% endfor %}
+
+                                    </div>
+                                    <h5 class="sub-title mt-30">Статус</h5>
+                                    <div class="adomx-checkbox-radio-group" id="positionGroup">
+                                        {% for market in el.MARKET_FIELD %}
+                                            {% if market.0 == el.category_market %}
+                                                 <label class="adomx-radio"><input type="radio" name="positions" value="toast-top-right" disabled checked /><i class="icon"></i>{{ market.1 }}</label>
+                                            {% else %}
+                                                <label class="adomx-radio"><input type="radio" name="positions" value="toast-bottom-right" disabled  /><i class="icon"></i>{{ market.1 }}</label>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-2 col-md-4 col-12 mb-50">
+                                    <div class="row mbn-20">
+                                        <div class="col-12 mb-20">
+                                            <label class="control-label" for="hideEasing">Доступно смс</label>
+                                            <input id="hideEasing" type="text" placeholder="{{ el.count_msg }} шт" disabled class="form-control" />
+                                        </div>
+
+                                        <div class="col-12 mb-20">
+                                            <label class="control-label" for="showMethod">Доступно диалогов</label>
+                                            <input id="showMethod" type="text" placeholder="{{ el.count_dialog }} шт" disabled class="form-control" />
+                                        </div>
+
+                                        <div class="col-12 mb-20">
+                                            <label class="control-label" for="showDuration">Временная задержка</label>
+                                            <input id="showDuration" type="number" placeholder="{{ el.delay }} сек" disabled class="form-control" />
+                                        </div>
+                                        <div class="col-12 mb-20">
+                                            <label class="control-label" for="showDuration">Процент на вывод средств</label>
+                                            <input type="number" placeholder="{{ el.financial_constraints.percentage_withdrawal }} %" disabled class="form-control" />
+                                        </div>
+                                        <div class="col-12 mb-20">
+                                            <label class="control-label" for="showDuration">Минимальная сумма вывода</label>
+                                            <input type="number" placeholder="{{ el.financial_constraints.withdrawal_amount_min }} ₽" disabled class="form-control" />
+                                        </div>
+                                        <div class="col-12 mb-20">
+                                            <label class="control-label" for="showDuration">Минимальная сумма зачислений</label>
+                                            <input type="number" placeholder="{{ el.financial_constraints.deposits_min }} ₽" disabled class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-2 col-md-4 col-12 mb-50">
+                                    <div class="row mbn-20">
+
+                                        <div class="col-12 mb-20">
+                                            <label class="control-label" for="hideDuration">Длина сообщения</label>
+                                            <input id="hideDuration" type="number" placeholder="{{ el.mess_ln }} символов" disabled class="form-control"  />
+                                        </div>
+
+                                        <div class="col-12 mb-20">
+                                            <label class="control-label" for="timeOut">Кол-во рефералов</label>
+                                            <input id="timeOut" type="number" placeholder="{{ el.count_invited_user }} шт" disabled class="form-control" />
+                                        </div>
+
+                                        <div class="col-12 mb-20">
+                                            <label class="control-label" for="extendedTimeOut">Стоимость</label>
+                                            <input id="extendedTimeOut" type="number" placeholder="{{ el.price }} ₽" disabled class="form-control" />
+                                        </div>
+                                        <div class="col-12 mb-20">
+                                            <label class="control-label" for="showDuration">Процент на пополнение средств</label>
+                                            <input type="number" placeholder="{{ el.financial_constraints.percentage_admission }} %" disabled class="form-control" />
+                                        </div>
+                                        <div class="col-12 mb-20">
+                                            <label class="control-label" for="showDuration">Максимальная сумма вывода</label>
+                                            <input type="number" placeholder="{{ el.financial_constraints.withdrawal_amount_max }} ₽" disabled class="form-control" />
+                                        </div>
+                                        <div class="col-12 mb-20">
+                                            <label class="control-label" for="showDuration">Максимальная сумма зачислений</label>
+                                            <input type="number" placeholder="{{ el.financial_constraints.deposits_max }} ₽" disabled class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 d-flex justify-content-end mb-100">
+                                    <div class="text-right">
+                                        <h3 class="fw-600 mb-0"> Стоимость продление: <span style="color: #9C27B0">{{ el.price_update }} ₽</span></h3>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 mb-50 d-flex justify-content-end mb-3">
+                                    <button class="button button-primary" data-toggle="modal" data-target="#tariff_payment">Обновить</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+        <div class="modal fade" id="tariff_payment">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Оплатите ваш заказ!</h5>
+                        <button class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Ваш комментарий: {{ user.technical_comment }}. Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="{% url 'update_tariff_internal_cash_account' el.id %}" class="button button-danger"><span style="color: white" >Оплатить бонусами</span></a>
+                        <a href="{% url 'update_tariff' el.id %}" class="button button-success"><span style="color: white" >Я оплатил</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endfor %}
+{% endblock %}
+

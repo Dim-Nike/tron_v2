@@ -49,3 +49,30 @@ class ChatAuthenticationForm(forms.Form):
         if not second_key.isdigit():
             raise ValidationError('Второй ключ должен быть цифрой')
         return second_key
+
+
+class SupportForm(forms.Form):
+    name = forms.CharField( max_length=155, widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Напишите ваше имя',
+               'autocomplete': 'off'}))
+    mail = forms.EmailField( max_length=155, widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Напишите вашу почту', 'autocomplete': 'off'}))
+    dsc = forms.CharField(widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Опишите вашу проблему', 'autocomplete': 'off'}))
+    category = forms.CharField(widget=forms.TextInput(
+        attrs={'class': 'form-control', 'type': "hidden", 'value': 'Problems_with_site', 'placeholder': 'Ваша категория', 'autocomplete': 'off'}))
+
+
+class CatSupportForm(forms.Form):
+    category_site = forms.CharField(widget=forms.TextInput(
+        attrs={'class': 'form-control', 'type': "hidden", 'value': 'Problems_with_site',
+               'placeholder': 'Ваша категория', 'autocomplete': 'off'}))
+    category_idf = forms.CharField(widget=forms.TextInput(
+        attrs={'class': 'form-control', 'type': "hidden", 'value': 'Problems_with_IDF',
+               'placeholder': 'Ваша категория', 'autocomplete': 'off'}))
+    category_money = forms.CharField(widget=forms.TextInput(
+        attrs={'class': 'form-control', 'type': "hidden", 'value': 'Problems_with_money',
+               'placeholder': 'Ваша категория', 'autocomplete': 'off'}))
+    category_other = forms.CharField(widget=forms.TextInput(
+        attrs={'class': 'form-control', 'type': "hidden", 'value': 'Other',
+               'placeholder': 'Ваша категория', 'autocomplete': 'off'}))

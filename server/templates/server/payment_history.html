@@ -1,0 +1,134 @@
+{% extends 'server/technical/pattern.html' %}
+{% load static %}
+
+
+{% block title %}{{ data.title }}{% endblock %}
+{% block content %}
+
+<div class="col-12 mb-30">
+                    <div class="box">
+                        <div class="box-head">
+                            <h3 class="title">История платежных операций</h3>
+                            <div class="col-12 mb-10 d-flex justify-content-end mb-3">
+                                <button class="button button-primary" data-toggle="modal" data-target="#replenishment">Пополнить счет</button>
+                                <button class="button button-primary" data-toggle="modal" data-target="#withdrawal">Вывести средства</button>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <table class="table table-bordered data-table data-table-export">
+                                <thead>
+                                    <tr>
+                                        <th>Наименование операции</th>
+                                        <th>Категория</th>
+                                        <th>Статус</th>
+                                        <th>Стоимость</th>
+                                        <th>Комментарий к платежу</th>
+                                        <th>Дата операции</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for el in payments %}
+                                    <tr>
+                                        <td>{{ el.dsc }}</td>
+                                        <td>{{ el.get_category_display }}</td>
+                                        {% if el.get_status_display == 'В ожидании'%}
+                                                    <td><span class="text-info d-flex justify-content-between fw-600">{{ el.get_status_display }}</span></td>
+                                                    {% elif el.get_status_display == 'Отклонен' or el.get_status_display == 'Заблокирован' or el.get_status_display == 'Неуспешный' %}
+                                                    <td><span class="text-danger d-flex justify-content-between fw-600">{{ el.get_status_display }}</span></td>
+                                                    {% elif el.get_status_display == 'Отменен' or el.get_status_display == 'Возврат' %}
+                                                    <td><span class="text-warning d-flex justify-content-between fw-600">{{ el.get_status_display }}</span></td>
+                                                    {% elif el.get_status_display == 'В обработке' or el.get_status_display == 'На проверке' %}
+                                                    <td><span class="text-secondary d-flex justify-content-between fw-600">{{ el.get_status_display }}</span></td>
+                                                    {% elif el.get_status_display == 'Успешный' %}
+                                                    <td><span class="text-success d-flex justify-content-between fw-600">{{ el.get_status_display }}</span></td>
+                                                    {% else %}
+                                                    <td>{{ el.get_status_display }}</td>
+                                                    {% endif %}
+                                        <td>{{ el.price }}</td>
+                                        <td>{{ el.technical_comment }}</td>
+                                        <td>{{ el.date }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="withdrawal">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Заявление на вывод средств!</h5>
+                        <button class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <form action="#" method="post">
+                        {% csrf_token %}
+                        <div class="modal-body">
+                            <div class="modal-body">
+                                <p>Здесь нужно написать текст!!!</p>
+                            </div>
+                            <div class="row mbn-15">
+                                <div class="col-12 mb-15">
+                                    <input type="text" class="form-control" placeholder="Номер банковской карты*" name="bank_card" oninput="formatInput(this);" required>
+                                </div>
+                                <div class="col-12 mb-15">
+                                    <input type="number" class="form-control" placeholder="Сумма вывода**" name="withdrawal_amount" min="{{user.flesh.tariff.financial_constraints.withdrawal_amount_min}}" max="{{ user.flesh.tariff.financial_constraints.withdrawal_amount_max }}" required>
+                                </div>
+                                <div class="col-12 mb-15">
+                                    <input type="text" class="form-control" placeholder="Комментарий к платежу(необязательно)" name="msg" maxlength="20">
+                                </div>
+                            </div>
+                            <div class="modal-body">
+                                <p style="color: #fd427c">* Номер банковских карт необходимо каждый раз вводить вручную, так как данная информация не хранится в системе</p>
+                                <p style="color: #fd427c">** Минимальная сумма для вывода средств {{ user.flesh.tariff.financial_constraints.withdrawal_amount_min }}р</p>
+                                <p style="color: #fd427c">*** Максимальная сумма для вывода средств {{ user.flesh.tariff.financial_constraints.withdrawal_amount_max }}р</p>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="button button-danger" data-dismiss="modal">Отменить</button>
+                            <button class="button button-success" type="submit"> Отправить заявление</button>
+                        </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
+
+<div class="modal fade" id="replenishment">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Зачисление на внутренний счет!!</h5>
+                        <button class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                     <form action="#" method="post">
+                        {% csrf_token %}
+                        <div class="modal-body">
+                            <div class="modal-body">
+                                <p>При пополнении суммы укажите перевидите точную сумму, которую вы укажите на эту карту 7777 7777 7777 7777!</p>
+                                <p>Так же при переводите укажите комментарий {{ technical_comment }}</p>
+                            </div>
+                            <div class="row mbn-15">
+                                <div class="col-12 mb-15">
+                                    <input type="text" class="form-control" placeholder="Сумма пополнение баланса" min="{{user.flesh.tariff.financial_constraints.deposits_min}}" max="{{ user.flesh.tariff.financial_constraints.deposits_max }}" required name="replenishment">
+                                </div>
+                            </div>
+                            <div class="modal-body">
+                                <p style="color: #fd427c">** Минимальная сумма для вывода средств {{ user.flesh.tariff.financial_constraints.deposits_min }}р</p>
+                                <p style="color: #fd427c">*** Максимальная сумма для вывода средств {{ user.flesh.tariff.financial_constraints.deposits_max }}р</p>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="button button-danger" data-dismiss="modal">Отменить</button>
+                            <button class="button button-success" type="submit"> Я пополнил</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+</div>
+
+
+{% endblock %}
+

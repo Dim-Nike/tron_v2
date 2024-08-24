@@ -82,8 +82,6 @@ def re_noise_msg(msg_en: str, f_key: str, noise_l: list):
 
 
 def re_esrs_v2_msg(re_noise_msg_user:str, esrs_number:dict, f_key:str, img_pxl, s_key:str, esrs: dict):
-    main_re_noise_msg = []
-    re_noise_msg = []
     edit_re_noise_msg_user = re_noise_msg_user+f_key
     main_check_msg_ersr_l = []
     check_msg_ersr_l = []
@@ -112,7 +110,6 @@ def re_esrs_v2_msg(re_noise_msg_user:str, esrs_number:dict, f_key:str, img_pxl, 
                 check_msg_ersr += el
     check_msg_ersr_l.append(check_msg_ersr)
     main_check_msg_ersr_l.append(check_msg_ersr_l)
-    test_arr = []
     main_esrs_not_img = []
     main_intermediate = []
     esrs_l = []
@@ -127,12 +124,6 @@ def re_esrs_v2_msg(re_noise_msg_user:str, esrs_number:dict, f_key:str, img_pxl, 
                     key = next(key for key, value in esrs_number.items() if value == int(el))
                     esrs_not_img.append(key)
         main_esrs_not_img.append(esrs_not_img)  # Добавляем текущий подмассив в общий список
-
-    # for test_check in main_check_msg_ersr_l[0]:
-    #     if test_check.isdigit():
-    #         if int(test_check) in esrs_number.values():
-    #             key = next(key for key, value in esrs_number.items() if value == int(test_check))
-    #             test_arr.append(key)
 
     for el in main_esrs_not_img:
         main_intermediate.append([el[i:i+int(len(str(sum(img_pxl))))] for i in range(0, len(el), 10)])
@@ -149,18 +140,21 @@ def re_esrs_v2_msg(re_noise_msg_user:str, esrs_number:dict, f_key:str, img_pxl, 
         esrs_l.append(''.join(map(str, el_esrs_l)))
 
     for msg in esrs_l:
-        if msg.isdigit():
-            if int(msg) in esrs.values():
-                msg_world = next(key for key, value in esrs.items() if value == int(msg))
-                msg_user += msg_world
+        for el in msg:
+            if el.isdigit():
+                print('Шифрование символов')
+                if int(msg) in esrs.values():
+                    msg_world = next(key for key, value in esrs.items() if value == int(msg))
+                    print(f'Расшифрованный символ - {msg_world}')
+                    msg_user += msg_world
 
-    return msg_user
+    return esrs_l
 
 
 msg_en = input('Введите сообщение ')
 f_key = input('Введите первый ключ(буква) ')
 s_key = input('Введите второй ключ(цифра) ')
-img_path='/home/trigger/Рабочий стол/КБССК.png'
+img_path=r'C:\Users\User\Desktop\ИП Хорошко М.png'
 #
 #
 #
@@ -172,10 +166,12 @@ def de_msg(msg_en, f_key, s_key, noise_l, image_patch, esrs_number, esrs):
                                     s_key=s_key, esrs=esrs)
 
     return de_esrs_v2_msg
-#
-# #
-print(de_msg(msg_en=msg_en, f_key=f_key, s_key=s_key, noise_l=noise_list,
-             image_patch='/home/trigger/Рабочий стол/КБССК.png', esrs_number=ERSR_number, esrs=ESRS))
+
+
+print(de_msg(msg_en=msg_en, f_key=f_key, s_key=s_key, noise_l=noise_list, image_patch=img_path, esrs_number=ERSR_number,
+             esrs=ESRS))
+
+
 
 
 

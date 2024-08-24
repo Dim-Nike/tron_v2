@@ -1,4 +1,4 @@
-from Tron.server.scripts.encrypte_v1 import *
+from encrypte_v1 import *
 
 test_msg =  [
     "Широкая электрификация южных губерний даст мощный толчок развитию сельского хозяйства.",

@@ -20,8 +20,8 @@ class FleshAdmin(admin.ModelAdmin):
 
 
 class TariffBalancesAdmin(admin.ModelAdmin):
-    list_display = ('count_msg_user', 'count_change_key', 'count_msg', 'count_dialog',
-                    'count_update_tariff', 'data_start', 'data_update')
+    list_display = ('count_msg_user', 'count_invited_user', 'count_msg', 'count_dialog',
+                    'count_withdrawal', 'data_start', 'data_update')
 
 
 class PaymentAdmin(admin.ModelAdmin):
@@ -67,12 +67,25 @@ class ObjIdfDialogAdmin(admin.ModelAdmin):
         return ", ".join([user.username for user in obj.user_connect.all()])
 
 
+class FinancialConstraintsAdmin(admin.ModelAdmin):
+    list_display = ['name']
+
+
+class SupportAdmin(admin.ModelAdmin):
+    list_display = ['category', 'mail', 'data_start', 'is_done']
+    list_filter = ['category', 'data_start', 'is_done']
+    search_fields = ['mail']
+
+
 admin.site.register(UserCustom, UserCustomAdmin)
 admin.site.register(Flesh, FleshAdmin)
 admin.site.register(Tariff, TariffAdmin)
 admin.site.register(TariffBalances, TariffBalancesAdmin)
 admin.site.register(Payment, PaymentAdmin)
 admin.site.register(KeyIdentification, KeyIdentificationAdmin)
+admin.site.register(CatNews)
 admin.site.register(News, NewsAdmin)
 admin.site.register(ObjIdfDialog, ObjIdfDialogAdmin)
+admin.site.register(FinancialConstraints, FinancialConstraintsAdmin)
+admin.site.register(Support, SupportAdmin)
 

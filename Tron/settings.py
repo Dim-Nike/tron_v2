@@ -33,8 +33,9 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'server',
     'chat',
-    'daphne' ,
+    'daphne',
     'channels',
+    'mathfilters',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -86,6 +87,18 @@ CHANNEL_LAYERS = {
 }
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'Tron',
+#         'USER': 'postgres',
+#         'PASSWORD': 'test_test', # Поменять на свой пароль
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
+
 
 DATABASES = {
     'default': {

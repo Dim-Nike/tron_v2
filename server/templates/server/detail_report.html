@@ -1,0 +1,109 @@
+{% extends 'server/technical/pattern.html' %}
+{% load static %}
+{% load mathfilters %}
+
+{% block title %}{{ data.title }}{% endblock %}
+{% block content %}
+
+<div class="row mbn-30">
+
+                <!--Invoice Head Start-->
+                <div class="col-12 mb-30">
+                    <div class="invoice-head">
+
+                        <h2 class="fw-700 mb-15">{{ category }}</h2>
+                        <hr>
+                    </div>
+                </div>
+                <!--Invoice Head End-->
+
+                <!--Invoice Details Table Start-->
+                <div class="col-12 mb-30">
+                    <div class="table-responsive">
+                        <table class="table table-bordered mb-0">
+                            <thead>
+                                <tr>
+                                    <th><span>ID</span></th>
+                                    <th class="text-right"><span>Наименование</span></th>
+                                    <th class="text-right"><span>Статус</span></th>
+                                    <th class="text-right"><span>Стоимость</span></th>
+                                    {% if value_payments.is_lost_profit == True %}
+                                        <th class="text-right">Упущенная выгода</th>
+                                        <th class="text-right"><span>Фактическая стоимость</span></th>
+                                    {% endif %}
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for el in payments %}
+                                <tr>
+                                    <td>#{{ el.id }}</td>
+                                    <td>{{ el.dsc }}</td>
+                                    {% if el.get_status_display == 'В ожидании'%}
+                                                    <td><span class="text-info d-flex justify-content-between fw-600">{{ el.get_status_display }}</span></td>
+                                                    {% elif el.get_status_display == 'Отклонен' or el.get_status_display == 'Заблокирован' or el.get_status_display == 'Неуспешный' %}
+                                                    <td><span class="text-danger d-flex justify-content-between fw-600">{{ el.get_status_display }}</span></td>
+                                                    {% elif el.get_status_display == 'Отменен' or el.get_status_display == 'Возврат' %}
+                                                    <td><span class="text-warning d-flex justify-content-between fw-600">{{ el.get_status_display }}</span></td>
+                                                    {% elif el.get_status_display == 'В обработке' or el.get_status_display == 'На проверке' %}
+                                                    <td><span class="text-secondary d-flex justify-content-between fw-600">{{ el.get_status_display }}</span></td>
+                                                    {% elif el.get_status_display == 'Успешный' %}
+                                                    <td><span class="text-success d-flex justify-content-between fw-600">{{ el.get_status_display }}</span></td>
+                                    {% endif %}
+                                    {% if report == 'replenishment' or report == 'withdrawal' %}
+                                        <td class="text-right">{{ el.price_start }}</td>
+                                    {% else %}
+                                        <td class="text-right">{{ el.price }}</td>
+                                    {% endif %}
+                                    {% if value_payments.is_lost_profit == True %}
+                                        {% if report == 'enrollment' %}
+                                            <td class="text-right">
+                                                {% with numerator=el.price|mul:user.flesh.tariff.financial_constraints.percentage_withdrawal denominator=100 %}
+                                                    {{ numerator|div:denominator }}
+                                                {% endwith %}
+                                                ({{ user.flesh.tariff.financial_constraints.percentage_withdrawal }} %)</td>
+                                       {% else %}
+                                            <td class="text-right">{{ el.price_start|sub:el.price }} ({{ el.percent_price }} %)</td>
+                                        {% endif %}
+                                        {% if report == 'enrollment' %}
+                                            <td class="text-right">
+                                            {% with numerator=el.price|mul:user.flesh.tariff.financial_constraints.percentage_withdrawal denominator=100 %}
+                                                {% with lost=numerator|div:denominator %}
+                                                    {{ el.price|sub:lost }}
+                                                {% endwith %}
+                                            {% endwith %}
+                                            </td>
+                                        {% else %}
+                                            <td class="text-right">{{ el.price }}</td>
+                                        {% endif %}
+                                    {% endif %}
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!--Invoice Details Table End-->
+
+                <!--Invoice Total Start-->
+                <div class="col-12 d-flex justify-content-end mb-15">
+                    <div class="text-right">
+                        {% if value_payments.is_lost_profit == True %}
+                            <h6><span style="color: #428bfa">Общая сумма:</span> {{ value_payments.total_price }}</h6>
+                            <h6><span style="color: #fd427c">Упущенная выгода({{ value_payments.percentage }}%):</span>  {{ value_payments.lost_profit }}</h6>
+                            <hr class="mb-10">
+                            <h3 class="fw-600 mb-0">Фактическая сумма: {{ value_payments.fact_price }}</h3>
+                        {% else %}
+                            <h3 class="fw-600 mb-0">Итоговая сумма: {{ value_payments.total_price }}</h3>
+                        {% endif %}
+                    </div>
+                </div>
+                <!--Invoice Total Start-->
+
+                <div class="col-12 mb-15">
+                    <hr>
+                </div>
+
+            </div>
+
+
+{% endblock %}

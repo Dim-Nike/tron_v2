@@ -50,7 +50,18 @@
 
                             <div class="content">
                                 <h1>Регистрация</h1>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                                {% if reference_user == 'Not code' %}
+                                    <p style="color: #ff9666">Вы регистрируетесь без реферального кода!</p>
+                                {% elif reference_user == 'Error code' %}
+                                    <p style="color: #fd427c">Неверный реферальный код!</p>
+                                {% elif reference_user == 'Error self' %}
+                                    <p style="color: #fd427c">Нельзя использовать свой реферальный код!</p>
+                                {% elif reference_user == 'Error_limit_invate_user' %}
+                                    <p style="color: #fd427c">К сожалению, у пользователя исчерпан лимит на использование реферальной программы!</p>
+                                    <p>Попросите вашего партнера обновить тариф или зарегистрируйтесь без реферальной программы!</p>
+                                {% else %}
+                                <p>Вы регистрируетесь с помощью реферальной программы! <br><b>Ваш партнер <span style="color: #29db2d" > {{ reference_user }}</span></b></p>
+                                {% endif %}
                             </div>
 
                             <div class="login-register-form">

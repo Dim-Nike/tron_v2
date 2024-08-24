@@ -1,0 +1,154 @@
+{% extends 'server/technical/pattern.html' %}
+{% load static %}
+
+{% block title %}{{ data.title }}{% endblock %}
+{% block content %}
+
+  <div class="content-body">
+
+
+
+            <div class="row">
+
+                <!--Order List Start-->
+                <div class="col-12">
+                    <div class="table-responsive">
+                        <table class="table table-vertical-middle">
+                            <thead>
+                                <tr>
+                                    <th>Категория</th>
+                                    <th>Количество операций</th>
+                                    <th>Общая стоиомость</th>
+                                    <th>Упущенная выгода</th>
+                                    <th>Соотношение</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    {% if payment_category.purchase.1 == 0 %}
+                                        <td><a href="#" style="color: #fd427c">Отсутствует</a></td>
+                                    {% else %}
+                                        <td style="color: #29db2d"><a href="#" >{{ payment_category.purchase.4 }}</a></td>
+                                    {% endif %}
+                                    <td>{{ payment_category.purchase.1 }}</td>
+                                    <td>{{ payment_category.purchase.2 }}</td>
+                                    <td>{{ payment_category.purchase.3 }}</td>
+                                    <td>{{ payment_category.purchase.0 }} %</td>
+                                    {% if payment_category.purchase.1 == 0 %}
+                                        <td><a href="#" class="button button-round" ><span style="color: while" >Недоступно</span></a>
+                                    {% else %}
+                                        <td><a href="#" class="button button-outline" data-license="{{ payment_category.purchase.5 }}"><span style="color: white" >Подробнее</span></a>
+                                    {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    {% if payment_category.update.1 == 0 %}
+                                        <td><a href="#" style="color: #fd427c">Отсутствует</a></td>
+                                    {% else %}
+                                        <td style="color: #29db2d"><a href="#" >{{ payment_category.update.4 }}</a></td>
+                                    {% endif %}
+                                    <td>{{ payment_category.update.1 }}</td>
+                                    <td>{{ payment_category.update.2 }}</td>
+                                    <td>{{ payment_category.update.3 }}</td>
+                                    <td>{{payment_category.update.0}} %</td>
+                                    {% if payment_category.update.1 == 0 %}
+                                        <td><a href="#" class="button button-round" ><span style="color: while" >Недоступно</span></a>
+                                    {% else %}
+                                        <td><a href="#" class="button button-outline" data-license="{{ payment_category.update.5 }}"><span style="color: white" >Подробнее</span></a>
+                                    {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    {% if payment_category.purchase_bonuses.1 == 0 %}
+                                        <td><a href="#" style="color: #fd427c">Отсутствует</a></td>
+                                    {% else %}
+                                        <td style="color: #29db2d"><a href="#" >{{ payment_category.purchase_bonuses.4 }}</a></td>
+                                    {% endif %}
+                                    <td>{{ payment_category.purchase_bonuses.1 }}</td>
+                                    <td>{{ payment_category.purchase_bonuses.2 }}</td>
+                                    <td>{{ payment_category.purchase_bonuses.3 }}</td>
+                                    <td>{{payment_category.purchase_bonuses.0}} %</td>
+                                    {% if payment_category.purchase_bonuses.1 == 0 %}
+                                        <td><a href="#" class="button button-round" ><span style="color: while" >Недоступно</span></a>
+                                    {% else %}
+                                        <td><a href="#" class="button button-outline" data-license="{{ payment_category.purchase_bonuses.5 }}"><span style="color: white" >Подробнее</span></a>
+                                    {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    {% if payment_category.enrollment.1 == 0 %}
+                                        <td><a href="#" style="color: #fd427c">Отсутствует</a></td>
+                                    {% else %}
+                                        <td style="color: #29db2d"><a href="#" >{{ payment_category.enrollment.4 }}</a></td>
+                                    {% endif %}
+                                    <td>{{ payment_category.enrollment.1 }}</td>
+                                    <td>{{ payment_category.enrollment.2 }}</td>
+                                    <td>{{ payment_category.enrollment.3 }} ({{ payment_category.enrollment.6 }} %)</td>
+                                    <td>{{payment_category.enrollment.0}} %</td>
+                                    {% if payment_category.enrollment.1 == 0 %}
+                                        <td><a href="#" class="button button-round" ><span style="color: while" >Недоступно</span></a>
+                                    {% else %}
+                                        <td><a href="#" class="button button-outline" data-license="{{ payment_category.enrollment.5 }}"><span style="color: white" >Подробнее</span></a>
+                                    {% endif %}
+                                    </td>
+                                </tr>
+
+                                <tr>
+
+                                    {% if payment_category.withdrawal.1 == 0 %}
+                                        <td><a href="#" style="color: #fd427c">Отсутствует</a></td>
+                                    {% else %}
+                                        <td style="color: #29db2d"><a href="#" >{{ payment_category.withdrawal.4 }}</a></td>
+                                    {% endif %}
+                                    <td>{{ payment_category.withdrawal.1 }}</td>
+                                    <td>{{ withdrawal_sum }}</td>
+                                    <td>{{ payment_category.withdrawal.3 }} ({{ payment_category.withdrawal.7 }} %)</td>
+                                    <td>{{ payment_category.withdrawal.0}} %</td>
+                                    {% if payment_category.withdrawal.1 == 0 %}<td><a href="#" class="button button-round" ><span style="color: while" >Недоступно</span></a>
+                                    {% else %}
+                                        <td><a href="#" class="button button-outline" data-license="{{ payment_category.withdrawal.5 }}"> <span style="color: white" >Подробнее</span></a>
+                                    {% endif %}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    {% if payment_category.replenishment.1 == 0 %}
+                                        <td><a href="#" style="color: #fd427c">Отсутствует</a></td>
+                                    {% else %}
+                                        <td style="color: #29db2d"><a href="#" >{{ payment_category.replenishment.4 }}</a></td>
+                                    {% endif %}
+                                    <td>{{ payment_category.replenishment.1 }}</td>
+                                    <td>{{ replenishment_sum }}</td>
+                                    <td>{{ payment_category.replenishment.3 }} ({{ payment_category.replenishment.7 }} %)</td>
+                                    <td>{{ payment_category.replenishment.0}} %</td>
+                                    {% if payment_category.replenishment.1 <= 0 %}
+                                        <td><a href="#" class="button button-round" ><span style="color: while" >Недоступно</span></a>
+                                    {% else %}
+                                        <td><a href="#" class="button button-outline" data-license="{{ payment_category.replenishment.5 }}" ><span style="color: white" >Подробнее</span></a>
+                                    {% endif %}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!--Order List End-->
+
+            </div>
+
+        </div><!-- Content Body End -->
+
+
+<script>
+    document.querySelectorAll('.button-outline').forEach(button => {
+  button.addEventListener('click', function(e) {
+    e.preventDefault();
+    let license = this.dataset.license;
+    window.location.href = '/detail_report?license=' + license;
+  });
+});
+</script>
+
+
+{% endblock %}

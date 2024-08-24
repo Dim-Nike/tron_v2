@@ -1,0 +1,30 @@
+{% extends 'server/technical/pattern.html' %}
+{% load static %}
+{% block title %}{{ data.title }}{% endblock %}
+{% block content %}
+
+<div class="row">
+{% for new in news %}
+<div class="col-lg-6 col-12 mb-30">
+                    <div class="box">
+                        <div class="box-body">
+                            <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <img src="{% static 'server/assets/images/carousel/carousel-7.jpg' %}" alt="...">
+                                        <div class="carousel-caption">
+                                            <a href="{% url 'detail_news' new.id %}" class="text-white">{{ new.title }}</a>
+                                            <p>{{ new.subtitle }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+{% endfor %}
+</div>
+
+{% endblock %}

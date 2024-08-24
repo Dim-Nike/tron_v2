@@ -9,8 +9,8 @@ class Room(models.Model):
     is_use = models.BooleanField(verbose_name='Используется', default=False)
 
     class Meta:
-        verbose_name = "Чатная комната"
-        verbose_name_plural = "Чатные комнаты"
+        verbose_name = "Частная комната"
+        verbose_name_plural = "Частные комнаты"
 
     def __str__(self):
         return f"Room({self.name} {self.host})"

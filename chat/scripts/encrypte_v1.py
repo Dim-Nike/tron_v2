@@ -35,7 +35,6 @@ ERSR_number = {'0': 572740, '1': 450670, '2': 753051, '3': 353144, '4': 195655, 
                '8': 650593, '9': 418544}
 
 
-
 def get_image_pixels(image_path):
     img_sum_pxl_img_l = []
     image = Image.open(image_path)  # Открываем изображение
@@ -129,8 +128,8 @@ def msg_esrs_v2_on_noise(msg_esrs_v2, noise_l: list, f_key):
 
     for el_msg in list(msg_esrs_v2):
         msg_noise += el_msg
-        for el_rand in range(200, 300):
-            rand_num = random.randint(0, len(new_noise_l)-1)
+        for el_rand in range(2, 3):
+            rand_num = random.randint(0, len(new_noise_l) - 1)
             msg_noise += str(new_noise_l[rand_num])
 
     return msg_noise
@@ -140,7 +139,7 @@ msg_user = input('Введите сообщение ')  # Сообщение к�
 f_key = input(f'Введите первый ключ')  # Ключ: любой символ, но не цифра
 s_key = input(f'Введите второй ключ')  # Ключ: любая цифра
 
-# #
+
 def en_msg(msg_user, ESRS, f_key, img_path, s_key, esrs_number, noise_list):
     msg_esrs = msg_user_on_ESRS(msg=msg_user, ESRS=ESRS, f_key=f_key)
     img_pxl = get_image_pixels(image_path=img_path)
@@ -149,12 +148,11 @@ def en_msg(msg_user, ESRS, f_key, img_path, s_key, esrs_number, noise_list):
     msg_noise = msg_esrs_v2_on_noise(msg_esrs_v2=msg_ersr_v2, noise_l=noise_list, f_key=f_key)
 
     return msg_noise
-# #
-# # #
-new_msg = en_msg(msg_user=msg_user, ESRS=ESRS, f_key=f_key, img_path='/home/trigger/Рабочий стол/КБССК.png', s_key=s_key,
+
+
+new_msg = en_msg(msg_user=msg_user, ESRS=ESRS, f_key=f_key, img_path=r'C:\Users\User\Desktop\ИП Хорошко М.png',
+                 s_key=s_key,
                  esrs_number=ERSR_number, noise_list=noise_list)
 
 print(new_msg)
-
-
 

@@ -29,6 +29,29 @@
                     <strong>Ошибка подключения!</strong> Невозможно подключиться к чат серверу два раза от одного лица.
                     <button class="close" data-dismiss="alert"><i class="zmdi zmdi-close"></i></button>
                 </div>
+                {% elif info_user == 'key_error' %}
+                <div class="alert alert-info" role="alert">
+                    <strong>Ошибка подключения!</strong> Введеные ключи не прошли автотестирование шифрование сообщений. Попробуйте заменить ключи!
+                    <button class="close" data-dismiss="alert"><i class="zmdi zmdi-close"></i></button>
+                </div>
+
+                {% elif info_user == 'key_warn'%}
+                <div class="alert alert-info" role="alert">
+                    <strong>Ошибка подключения!</strong> Автотестирование сообщений выдает неккоректный результат. Попробуйте заменить ключи!
+                    <button class="close" data-dismiss="alert"><i class="zmdi zmdi-close"></i></button>
+                </div>
+                {% elif info_user == 'error_user_count_dialog'%}
+                <div class="alert alert-info" role="alert">
+                    <strong>Ошибка подключения!</strong> У вас закончился лимит на добавление новых диалогов! Вы можете подключиться к диалогам, к которым раннее подключались, либо обновите тариф!
+                    <button class="close" data-dismiss="alert"><i class="zmdi zmdi-close"></i></button>
+                </div>
+
+                {% elif info_user == 'error_pair_count_dialog'%}
+                <div class="alert alert-info" role="alert">
+                    <strong>Ошибка подключения!</strong> У вашего собеседника закончился лимит на добавление новых диалогов!
+                    <button class="close" data-dismiss="alert"><i class="zmdi zmdi-close"></i></button>
+                </div>
+
             {% endif %}
             <!--Default Alert End-->
             <div class="row mbn-10">
@@ -72,12 +95,18 @@
                                         {{ form.image }}
                                     </div>
                                     <div class="col-12 mb-20">
-                                        <button type="submit" class="button button-danger">Обновить ключи</button>
-                                        {% if info_user == 'update' %}
-                                            <button type="submit" class="button button-primary">Обновить</button>
-                                        {% else %}
-                                            <button type="submit" class="button button-primary">Сохранить</button>
-                                        {% endif %}
+                                            {% if info_user == 'await' %}
+                                                <div class="alert alert-outline-danger" role="alert">
+                                                    Перед аунтификацией чат сервера вам необходимо <a class="alert-link" href="#">авторизовать</a> вашу флешку!
+                                                </div>
+                                            {% else %}
+                                                <button type="submit" class="button button-danger">Обновить ключи</button>
+                                                {% if info_user == 'update' %}
+                                                    <button type="submit" class="button button-primary">Обновить</button>
+                                                {% else %}
+                                                    <button type="submit" class="button button-primary">Сохранить</button>
+                                                {% endif %}
+                                            {% endif %}
                                     </div>
                                 </div>
                             </form>
@@ -126,31 +155,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xlg-12 col-md-6 col-12 mb-60">
-                    <div class="top-report">
 
-                        <!-- Head -->
-                        <div class="head">
-                            <h4>Total Visitor</h4>
-                            <a href="#" class="view"><i class="zmdi zmdi-eye"></i></a>
-                        </div>
-
-                        <!-- Content -->
-                        <div class="content">
-                            <h5>Todays</h5>
-                            <h2>100,560.00</h2>
-                        </div>
-
-                        <!-- Footer -->
-                        <div class="footer">
-                            <div class="progess">
-                                <div class="progess-bar" style="width: 92%;"></div>
-                            </div>
-                            <p>92% of unique visitor</p>
-                        </div>
-
-                    </div>
-                </div>
                 <!--Default El End-->
 
             </div>

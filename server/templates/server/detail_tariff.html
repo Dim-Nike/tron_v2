@@ -1,0 +1,88 @@
+{% extends 'server/technical/pattern.html' %}
+{% load static %}
+
+
+{% block title %}{{ data.title }}{% endblock %}
+{% block content %}
+
+<div class="col-12 mb-30">
+                    <div class="box">
+                        <div class="box-head">
+                            <h3 class="title">Export Data Table</h3>
+                        </div>
+                        <div class="box-body">
+                            <table class="table table-bordered data-table data-table-export">
+                                <thead>
+                                    <tr>
+                                        <th>Лицензия</th>
+                                        <th>Кол-во смс</th>
+                                        <th>Кол-во диалогов</th>
+                                        <th>Длина смс</th>
+
+                                        <th>Статус</th>
+                                        <th>Стоимость продления</th>
+                                        <th>Цена</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                {% for el in tariff %}
+                                <tr>
+                                        <td><a href="{% url 'tariff_buy' el.id %}">{{ el.name }}</a></td>
+                                        <td>{{ el.count_msg }}</td>
+                                        <td>{{ el.count_dialog }}</td>
+                                        <td>{{ el.mess_ln  }}</td>
+                                        {% if el.category_market == 'on sale' %}
+                                        <td><span class="badge badge-primary">{{ el.get_category_market_display }}</span></td>
+                                        {% elif  el.category_market == 'popular' %}
+                                        <td><span class="badge badge-info">{{ el.get_category_market_display }}</span></td>
+                                        {% elif  el.category_market == 'unavailable' %}
+                                        <td><span class="badge badge-danger">{{ el.get_category_market_display }}</span></td>
+                                        {% elif  el.category_market == 'in processing' %}
+                                        <td><span class="badge badge-warning">{{ el.get_category_market_display }}</span></td>
+                                        {% elif  el.category_market == 'new' %}
+                                        <td><span class="badge badge-success">{{ el.get_category_market_display }}</span></td>
+                                        {% elif  el.category_market == 'beneficial' %}
+                                        <td><span class="badge badge-secondary">{{ el.get_category_market_display }}</span></td>
+                                        {% endif %}
+                                        <td>{{ el.price_update }}</td>
+                                        <td>{{ el.price }}</td>
+                                    </tr>
+                                </tbody>
+                                {% endfor %}
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+{% for el in tariffs %}
+    <h1>{{ el.name }}</h1>
+    <h2>{{el.price}}</h2>
+{% endfor %}
+
+
+{% endblock %}
+
+
+  <script src="{% static 'server/assets/js/plugins/datatables/datatables.min.js' %}"></script>
+    <script src="{% static 'server/assets/js/plugins/datatables/datatables.active.js' %}"></script>
+    <script src="{% static 'server/assets/js/plugins/moment/moment.min.js' %}"></script>
+    <script src="{% static 'server/assets/js/plugins/footable/footable.min.js' %}"></script>
+    <script src="{% static 'server/assets/js/plugins/footable/footable.active.js' %}"></script>
+
+   <script>
+        $('.data-table-default').DataTable({
+    responsive: true,
+    language: {
+        paginate: {
+            previous: '',
+            next: ''
+        }
+    }
+});
+
+
+</script>

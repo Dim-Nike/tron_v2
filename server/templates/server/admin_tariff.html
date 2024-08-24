@@ -1,0 +1,94 @@
+{% extends 'server/technical/pattern.html' %}
+{% load static %}
+
+
+{% block title %}{{ data.title }}{% endblock %}
+{% block content %}
+
+<div class="col-12 mb-30">
+                    <div class="box">
+                        <div class="box-head">
+                            <h3 class="title">Платежные операции</h3>
+                            <div class="col-12 mb-10 d-flex justify-content-end mb-3">
+                                    <button class="button button-primary" data-toggle="modal" data-target="#tariff_payment">Обработать заказ</button>
+                            </div>
+                        </div>
+                        <div class="box-body">
+
+                            <table class="table table-bordered data-table data-table-export">
+                                <thead>
+                                    <tr>
+                                        <th>Наименование операции</th>
+                                        <th>Категория</th>
+                                        <th>Комментарий к платежу</th>
+                                        <th>Стоимость</th>
+                                        <th>Статус</th>
+                                        <th>Дата операции</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for el in payments %}
+                                    <tr>
+                                        <td>{{ el.dsc }}</td>
+                                        <td>{{ el.category }}</td>
+                                        <td>{{ el.technical_comment }}</td>
+                                        <td>{{ el.price }}</td>
+                                        <td>{{ el.get_status_display }}</td>
+                                        <td>{{ el.date }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+<div class="modal fade" id="tariff_payment">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Оплатите ваш заказ!</h5>
+                        <button class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <form action="#" method="post">
+                        {% csrf_token %}
+                        <div class="modal-body">
+                            <div class="row mbn-15">
+                                <div class="col-12 mb-15">
+                                    <input type="text" class="form-control" placeholder="Input" name="input_text">
+                                </div>
+                                <div class="col-12 mb-15">
+                                    <select class="form-control" name="select_option">
+                                        <option>Select</option>
+                                        <optgroup label="Успешные">
+                                            <option value="successful">successful</option>
+                                            <option value="checking">checking</option>
+                                            <option value="processed">processed</option>
+                                        </optgroup>
+                                        <optgroup label="В ожидании">
+                                            <option value="processing">processing</option>
+                                            <option value="checking">checking</option>
+                                            <option value="waiting">waiting</option>
+                                        </optgroup>
+                                        <optgroup label="Неуспешные">
+                                            <option value="rejected">rejected</option>
+                                            <option value="return">return</option>
+                                            <option value="unsuccessful">unsuccessful</option>
+                                            <option value="blocked">blocked</option>
+                                            <option value="canceled">canceled</option>
+                                        </optgroup>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="button button-danger" data-dismiss="modal">Отказаться</button>
+                            <button class="button button-success" type="submit"> Обработать</button>
+                        </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
+
+
+{% endblock %}

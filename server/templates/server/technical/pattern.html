@@ -1,0 +1,283 @@
+{% load static %}
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>TRIGGER - {% block title %}{% endblock %}</title>
+    <meta name="robots" content="noindex, follow" />
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'server/assets/images/favicon.ico' %}">
+
+    <!-- CSS
+	============================================ -->
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'server/assets/css/vendor/bootstrap.min.css' %}">
+
+    <!-- Icon Font CSS -->
+    <link rel="stylesheet" href="{% static 'server/assets/css/vendor/material-design-iconic-font.min.css' %}">
+    <link rel="stylesheet" href="{% static 'server/assets/css/vendor/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'server/assets/css/vendor/themify-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'server/assets/css/vendor/cryptocurrency-icons.css' %}">
+
+    <!-- Plugins CSS -->
+    <link rel="stylesheet" href="{% static 'server/assets/css/plugins/plugins.css' %}">
+
+    <!-- Helper CSS -->
+    <link rel="stylesheet" href="{% static 'server/assets/css/helper.css' %}">
+
+    <!-- Main Style CSS -->
+    <link rel="stylesheet" href="{% static 'server/assets/css/style-purple.css' %}">
+
+</head>
+
+<body class="skin-dark">
+
+    <div class="main-wrapper">
+        <!-- Header Section Start -->
+        <div class="header-section">
+            <div class="container-fluid">
+                <div class="row justify-content-between align-items-center">
+
+                    <!-- Header Logo (Header Left) Start -->
+                    <div class="header-logo col-auto">
+                        <a href="{% url 'home' %}">
+                            <img src="{% static 'server/assets/images/logo/logo.png' %}" alt="">
+                            <img src="{% static 'server/assets/images/logo/logo-light.png' %}" class="logo-light" alt="">
+                        </a>
+                    </div><!-- Header Logo (Header Left) End -->
+
+                    <!-- Header Right Start -->
+                    <div class="header-right flex-grow-1 col-auto">
+                        <div class="row justify-content-between align-items-center">
+
+                            <!-- Side Header Toggle & Search Start -->
+                            <div class="col-auto">
+                                <div class="row align-items-center">
+
+                                    <!--Side Header Toggle-->
+                                    <div class="col-auto"><button class="side-header-toggle"><i class="zmdi zmdi-menu"></i></button></div>
+
+                                    <!--Header Search-->
+                                    <div class="col-auto">
+
+                                        <div class="header-search">
+                                            <button class="header-search-open d-block d-xl-none"><i class="zmdi zmdi-search"></i></button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div><!-- Side Header Toggle & Search End -->
+
+                            <!-- Header Notifications Area Start -->
+                            <div class="col-auto">
+
+                                <ul class="header-notification-area">
+
+
+                                    <!--Mail-->
+                                    <li class="adomx-dropdown col-auto">
+                                        <a class="toggle" href="#"><i class="zmdi zmdi-email-open"></i><span class="badge"></span></a>
+
+                                        <!-- Dropdown -->
+                                        <div class="adomx-dropdown-menu dropdown-menu-mail">
+                                            <div class="head">
+                                                {% if user.status_idf == 'connected' %}
+                                                    <h4 class="title">Подключен к чат серверу</h4>
+                                                {% elif user.status_idf == 'waiting' %}
+                                                    <h4 class="title">В ожидании собеседника</h4>
+                                                {% elif user.status_idf == 'not_connect' %}
+                                                    <h4 class="title">Не подключен к чат серверу </h4>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                    <li class="adomx-dropdown col-auto">
+                                        <a class="toggle" href="{% url 'profile' %}">
+                                            <span class="user">
+                                        <span class="avatar">
+                                            <img src="{% static 'server/assets/images/avatar/avatar-1.jpg' %}" alt="">
+                                            <span class="status"></span>
+                                            </span>
+                                            <span class="name">{{ user.username }}</span>
+                                            </span>
+                                        </a>
+
+                                        <!-- Dropdown -->
+                                        <div class="adomx-dropdown-menu dropdown-menu-user">
+                                            <div class="head">
+                                                <h5 class="name"><a href="#">Внутренний счет: {{ user.internal_cash_account }} р</a></h5>
+                                                <p></p>
+                                            </div>
+                                            <div class="body">
+                                                <ul>
+                                                    <li><a href="{% url 'profile' %}"><i class="zmdi zmdi-account"></i>Профиль</a></li>
+                                                    <li><a href="{% url 'tariff_user' %}"><i class="zmdi zmdi-email-open"></i>Мой тариф</a></li>
+                                                    <li><a href="{% url 'set-idf-form' %}"><i class="zmdi zmdi-wallpaper"></i>Настрока IDF</a></li>
+                                                </ul>
+                                                <ul>
+                                                    <li><a href="{% url 'referral_program' %}"><i class="zmdi zmdi-lock-open"></i>Реферальная программа</a></li>
+                                                    <li><a href="{% url 'report_category' %}"><i class="zmdi zmdi-lock-open"></i>Финансовые отчёты</a></li>
+                                                </ul>
+                                                <ul>
+                                                    <li><a href="{% url 'cat_news' %}"><i class="zmdi zmdi-google-pages"}></i>Новости</a></li>
+                                                    <li><a href="#"><i class="zmdi zmdi-google-pages"></i>Руководство к платформе</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                    </li>
+
+                                </ul>
+
+                            </div><!-- Header Notifications Area End -->
+
+                        </div>
+                    </div><!-- Header Right End -->
+
+                </div>
+            </div>
+        </div><!-- Header Section End -->
+        <!-- Side Header Start -->
+        <div class="side-header show">
+            <button class="side-header-close"><i class="zmdi zmdi-close"></i></button>
+            <!-- Side Header Inner Start -->
+            <div class="side-header-inner custom-scroll">
+
+                <nav class="side-header-menu" id="side-header-menu">
+                    <ul>
+                        <li class="has-sub-menu"><a href="#"><i class="ti-home"></i> <span>Личный кабинет</span></a>
+                            <ul class="side-header-sub-menu">
+                                <li><a href="{% url 'home' %}"><span>Главная страница</span></a></li>
+                                <li><a href="{% url 'profile' %}"><span>Профиль</span></a></li>
+                            </ul>
+                        </li>
+                        <li class="has-sub-menu"><a href="#"><i class="ti-package"></i> <span>Тарифы</span></a>
+                            <ul class="side-header-sub-menu">
+                                <li><a href="{% url 'tariffs' %}"><span>Тарифы</span></a></li>
+                                <li><a href="{% url 'tariff_user' %}"><span>Мой тариф</span></a></li>
+                            </ul>
+                        </li>
+                        <li class="has-sub-menu"><a href="#"><i class="ti-crown"></i> <span>Финансовые операция</span></a>
+                            <ul class="side-header-sub-menu">
+                                <li><a href="{% url 'payment_history' %}"><span>История платежных операция</span></a></li>
+                                <li><a href="{% url 'referral_program' %}"><span>Реферальная программа</span></a></li>
+                                <li><a href="{% url 'report_category' %}"><span>Финансовые отчёты</span></a></li>
+                            </ul>
+                        </li>
+                        <li class="has-sub-menu"><a href="#"><i class="ti-stamp"></i> <span>Новости</span></a>
+                            <ul class="side-header-sub-menu">
+                                <li><a href="{% url 'cat_news' %}"><span>Все новости</span></a></li>
+                                {% for cat in catNews %}
+                                    <li><a href="{% url 'news' cat.id %}">{{ cat.title }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                        <li class="has-sub-menu"><a href="#"><i class="ti-notepad"></i> <span>Руководство</span></a>
+                            <ul class="side-header-sub-menu">
+                                <li><a href="#"><span>Справочная служба</span></a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+
+            </div><!-- Side Header Inner End -->
+        </div><!-- Side Header End -->
+
+        <!-- Content Body Start -->
+        <div class="content-body">
+
+            <!-- Page Headings Start -->
+            <div class="row justify-content-between align-items-center mb-10">
+
+                <!-- Page Heading Start -->
+                <div class="col-12 col-lg-auto mb-20">
+                    <div class="page-heading">
+                        <h3>App <span>/ Chat</span></h3>
+                    </div>
+                </div><!-- Page Heading End -->
+
+            </div><!-- Page Headings End -->
+            {% block content %}
+            {% endblock %}
+
+
+
+        <!-- Footer Section Start -->
+        <div class="footer-section">
+            <div class="container-fluid">
+
+                <div class="footer-copyright text-center">
+                    <p class="text-body-light">2024 &copy; <a href="https://themeforest.net/user/codecarnival">TRIGGER</a></p>
+                </div>
+
+            </div>
+        </div><!-- Footer Section End -->
+
+    </div>
+
+    <!-- JS
+============================================ -->
+
+    <!-- Global Vendor, plugins & Activation JS -->
+    <script src="{% static 'server/assets/js/vendor/modernizr-3.6.0.min.js' %}"></script>
+    <script src="{% static 'server/assets/js/vendor/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'server/assets/js/vendor/popper.min.js' %}"></script>
+    <script src="{% static 'server/assets/js/vendor/bootstrap.min.js' %}"></script>
+    <!--Plugins JS-->
+    <script src="{% static 'server/assets/js/plugins/perfect-scrollbar.min.js' %}"></script>
+    <script src="{% static 'server/assets/js/plugins/tippy4.min.js.js' %}"></script>
+    <!--Main JS-->
+    <script src="{% static 'server/assets/js/main.js' %}"></script>
+
+   <script src="{% static 'server/assets/js/plugins/clipboard/clipboard.min.js' %}"></script>
+    <script src="{% static 'server/assets/js/plugins/clipboard/clipboard.active.js' %}"></script>
+
+    <!-- Plugins & Activation JS For Only This Page -->
+    <script src="{% static 'server/assets/js/plugins/sweetalert/sweetalert.min.js'%}"></script>
+    <script src="{% static 'server/assets/js/plugins/sweetalert/sweetalert.active.js'%}"></script>
+
+    <!--Moment-->
+    <script src="{% static 'server/assets/js/plugins/moment/moment.min.js' %}"></script>
+
+    <!--Daterange Picker-->
+    <script src="{% static 'server/assets/js/plugins/daterangepicker/daterangepicker.js' %}"></script>
+    <script src="{% static 'server/assets/js/plugins/daterangepicker/daterangepicker.active.js' %}"></script>
+
+    <!--Echarts-->
+    <script src="{% static 'server/assets/js/plugins/chartjs/Chart.min.js' %}"></script>
+    <script src="{% static 'server/assets/js/plugins/chartjs/chartjs.active.js' %}"></script>
+
+    <!--VMap-->
+    <script src="{% static 'server/assets/js/plugins/vmap/jquery.vmap.min.js' %}"></script>
+    <script src="{% static 'server/assets/js/plugins/vmap/maps/jquery.vmap.world.js' %}"></script>
+    <script src="{% static 'server/assets/js/plugins/vmap/maps/samples/jquery.vmap.sampledata.js' %}"></script>
+    <script src="{% static 'server/assets/js/plugins/vmap/vmap.active.js' %}"></script>
+
+    <script src="{% static 'server/assets/js/plugins/datatables/datatables.min.js' %}"></script>
+    <script src="{% static 'server/assets/js/plugins/datatables/datatables.active.js' %}"></script>
+
+    <script src="{% static 'server/assets/js/plugins/smartWizard/jquery.smartWizard.min.js '%}"></script>
+    <script src="{% static 'server/assets/js/plugins/smartWizard/smartWizard.active.js '%}"></script>
+
+        <script>
+  function formatInput(input) {
+    var num = input.value.replace(/\D/g,'');
+    input.value = num.substring(0,4) + ' ' + num.substring(4,8) + ' ' + num.substring(8,12) + ' ' + num.substring(12,16);
+  }
+</script>
+<script>
+    var clipboard = new ClipboardJS('.paragraphClipboard2');
+    $('.smart-wizard').smartWizard({
+    showStepURLhash: false,
+});
+</script>
+
+</body>
+
+</html>

@@ -1,6 +1,6 @@
 {% extends 'server/technical/pattern.html' %}
 {% load static %}
-<!doctype html>
+
 
 {% block title %}{{ data.title }}{% endblock %}
 {% block content %}
@@ -10,7 +10,11 @@
             {% elif data_user.status_idf == 'waiting' %}
                 <button class="button button-warning" data-toggle="modal" data-target="#waiting">Перейти в чат</button>
             {% elif data_user.status_idf == 'connected' %}
-                <button class="button button-success" data-toggle="modal" data-target="#connected">Перейти в чат</button>
+                {% if is_active_chat != None %}
+                    <button class="button button-success" data-toggle="modal" data-target="#connected">Перейти в чат</button>
+                {% else %}
+                    <button class="button button-warning" data-toggle="modal" data-target="#auth_local_key">Перейти в чат</button>
+                {% endif %}
             {% endif %}
             <a href="{% url 'set-idf-form' %}" class="button button-warning">Настроить доступ индификатора</a>
 
@@ -39,7 +43,7 @@
                             <div class="progess">
                                 <div class="progess-bar" style="width: {{ data_user.count_msg.2 }}%;"></div>
                             </div>
-                            <p>BTC (USD) = $6,316.88 {{ data_user.count_msg.2 }}</p>
+                            <p>Доступно: {{ data_user.count_msg.2 }} %</p>
                         </div>
 
                     </div>
@@ -67,7 +71,7 @@
                             <div class="progess">
                                 <div class="progess-bar" style="width: {{ data_user.count_dialog.2 }}%;"></div>
                             </div>
-                            <p>BTC (USD) = $6,316.88 {{ data_user.count_dialog.2 }}</p>
+                            <p>Доступно: {{ data_user.count_dialog.2 }} %</p>
                         </div>
 
                     </div>
@@ -82,20 +86,20 @@
 
                         <!-- Head -->
                         <div class="head">
-                            <h4>Доступно обновлений ключей</h4>
+                            <h4>Приглашенных пользователей</h4>
                         </div>
 
                       <!-- Content -->
                          <div class="content">
-                            <h2>{{ data_user.count_change_key.0 }} из {{ data_user.count_change_key.1 }}</h2>
+                            <h2>{{ data_user.count_invited_user.0 }} из {{ data_user.count_invited_user.1 }}</h2>
                         </div>
 
                         <!-- Footer -->
                         <div class="footer">
                             <div class="progess">
-                                <div class="progess-bar" style="width: {{ data_user.count_change_key.2 }}%;"></div>
+                                <div class="progess-bar" style="width: {{ data_user.count_invited_user.2 }}%;"></div>
                             </div>
-                            <p>BTC (USD) = $6,316.88 {{ data_user.count_change_key.2 }}</p>
+                            <p>Доступно: {{ data_user.count_invited_user.2 }} %</p>
                         </div>
                     </div>
                 </div><!-- Top Report End -->
@@ -109,35 +113,34 @@
 
                         <!-- Head -->
                         <div class="head">
-                            <h4>Доступно обновлений тарифа</h4>
+                            <h4>Вывод с внутреннего счета</h4>
                         </div>
 
                          <!-- Content -->
                          <div class="content">
-                            <h2>{{ data_user.count_update_tariff.0 }} из {{ data_user.count_update_tariff.1 }}</h2>
+                            <h2>{{ data_user.count_withdrawal.0 }} из {{ data_user.count_withdrawal.1 }}</h2>
                         </div>
 
                         <!-- Footer -->
                         <div class="footer">
                             <div class="progess">
-                                <div class="progess-bar" style="width: {{ data_user.count_update_tariff.2 }}%;"></div>
+                                <div class="progess-bar" style="width: {{ data_user.count_withdrawal.2 }}%;"></div>
                             </div>
-                            <p>BTC (USD) = $6,316.88 {{ data_user.count_update_tariff.2 }}</p>
+                            <p>Доступно: {{ data_user.count_withdrawal.2 }} %</p>
                         </div>
                     </div>
 
                 </div><!-- Top Report End -->
             </div><!-- Top Report Wrap End -->
 
-
-
             <div class="row mbn-30">
                 <!-- Revenue Statistics Chart Start -->
                 <div class="col-12 mb-30">
                     <div class="box">
                         <div class="box-head">
-                            <h4 class="title">Моя статистика</h4>
+                            <h4 class="title">Мой тариф: <span style="color: #9C27B0">{{ user.flesh.tariff.name }}</span></h4>
                         </div>
+
                         <div class="box-body">
 
                             <div class="chart-legends-1 row">
@@ -169,18 +172,17 @@
 
                 <!-- Market Trends Chart Start -->
 
-
                 <!-- News & Updates Start -->
-                <div class="col-xlg-5 col-lg-6 col-12 mb-30">
+                <div class="col-xlg-5 col-lg-12 col-6 mb-30">
                     <!-- News & Updates Wrap Start -->
                     <div class="box">
                         <div class="box-head">
-                            <h4 class="title">News & Updates</h4>
+                            <h4 class="title">Новости & Обновления</h4>
                         </div>
                         <div class="box-body">
                             <!-- News & Updates Inner Start -->
                             <div class="news-update-inner">
-
+                                {% for new in news %}
                                 <!-- News Item -->
                                 <div class="news-item">
 
@@ -188,65 +190,40 @@
                                     <div class="content">
                                         <!-- Category -->
                                         <div class="categories">
-                                            <a href="#" class="new">New</a>
-                                            <a href="#" class="product">Product</a>
+                                            {% if new.cat_status == new %}
+                                                <a href="#" class="new">Новинка</a>
+                                            {% elif new.cat_status == 'product' %}
+                                                <a href="#" class="product">О продукте</a>
+                                            {% elif new.cat_status == 'support' %}
+                                                <a href="#" class="support">О сервисе</a>
+                                            {% elif new.cat_status == 'tariff' %}
+                                                <a href="#" class="refund">О тарифах</a>
+                                            {% endif %}
+                                            <a href="{% url 'news' new.category.id %}" class="product">{{ new.category }}</a>
                                         </div>
                                         <!-- Title -->
-                                        <h4 class="title"><a href="#">Sed do eiusmod tempor incididunt ut labore. Lorem Ipsum is simplydummy text of the printing and typesetting industry.</a></h4>
+                                        <h4 class="title"><a href="{% url 'detail_news' new.id   %}">{{ new.title }}. {{ new.subtitle }}</a></h4>
                                         <!-- Meta -->
                                         <ul class="meta">
-                                            <li><i class="zmdi zmdi-time"></i>10 Houre ago</li>
-                                            <li>By: <a href="#">Howard</a></li>
+                                            <li><i class="zmdi zmdi-time"></i>{{ new.date }}</li>
                                         </ul>
                                     </div>
 
                                 </div>
 
+                                {% endfor %}
                                 <!-- News Item -->
-                                <div class="news-item">
 
-                                    <!-- Content -->
-                                    <div class="content">
-                                        <!-- Category -->
-                                        <div class="categories">
-                                            <a href="#" class="support">Support</a>
-                                        </div>
-                                        <!-- Title -->
-                                        <h4 class="title"><a href="#">Sed do eiusmod tempor labore. Lorem Ipsum is simplydummy text of the printing and.</a></h4>
-                                        <!-- Meta -->
-                                        <ul class="meta">
-                                            <li><i class="zmdi zmdi-time"></i>10 Houre ago</li>
-                                            <li>By: <a href="#">Aaron</a></li>
-                                        </ul>
-                                    </div>
-
-                                </div>
-
-                                <!-- News Item -->
-                                <div class="news-item">
-
-                                    <!-- Content -->
-                                    <div class="content">
-                                        <!-- Category -->
-                                        <div class="categories">
-                                            <a href="#" class="refund">Refund</a>
-                                        </div>
-                                        <!-- Title -->
-                                        <h4 class="title"><a href="#">Sed do eiusmod typesetting industry. Lorem Ipsum is simplydummy text of the printing and typesetting industry.</a></h4>
-                                        <!-- Meta -->
-                                        <ul class="meta">
-                                            <li><i class="zmdi zmdi-time"></i>10 Houre ago</li>
-                                            <li>By: <a href="#">Dylan</a></li>
-                                        </ul>
-                                    </div>
-
-                                </div>
 
                             </div><!-- News & Updates Inner End -->
                         </div>
                     </div><!-- News & Updates Wrap End -->
                 </div><!-- News & Updates End -->
 
+
+                {% for el in cat %}
+                    <p>{{ el.pk }}</p>
+                {% endfor %}
                 <!-- Top Selling Country Start -->
                 <div class="col-xlg-7 col-12 mb-30">
                     <div class="box">
@@ -283,6 +260,25 @@
             </div>
         </div>
 
+
+        <div class="modal fade" id="auth_local_key">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Авторизуйте бесперебойным соединением вашу программу с сервером!</h5>
+                        <button class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                        {{ is_active_chat }}
+                        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="button button-danger" data-dismiss="modal">Понятно</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="modal fade" id="waiting">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -304,7 +300,7 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Вы подключены к чату</h5>
+                        <h5 class="modal-title">Вы подключены к серверу, можно перейти в диалог!</h5>
                         <button class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
                     </div>
                     <div class="modal-body">
@@ -312,20 +308,17 @@
                     </div>
                     <div class="modal-footer">
                         <button class="button button-danger" data-dismiss="modal">Отмена</button>
-{% if room_name %}
-
-
-
-                        <a href="{% url 'room' room_name=room_name %}"class="button button-success">Начать общение</a>
-{% endif %}
+                        <a href="#" class="button button-success">Начать общение</a>
                     </div>
                 </div>
             </div>
         </div>
 {% endblock %}
-<script>
-swal("Hello world!");
-</script>
+
+<script src="{% static 'server/assets/js/plugins/raphael/raphael.min.js' %}"></script>
+<script src="{% static 'server/assets/js/plugins/morris/morris.min.js' %}"></script>
+<script src="{% static 'server/assets/js/plugins/morris/morris.active.js' %}"></script>
+
 
 </body>
 

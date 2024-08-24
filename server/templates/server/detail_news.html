@@ -1,0 +1,45 @@
+{% extends 'server/technical/pattern.html' %}
+{% load static %}
+{% block title %}{{ data.title }}{% endblock %}
+{% block content %}
+
+{% for new in news %}
+<div class="col-xlg-8 col-12 mb-50">
+                    <div class="box box-border-less p-0">
+
+                        <div class="box-head">
+                            <h3 class="title">{{ new.category }} / {{ new.title }}</h3>
+                        </div>
+
+                        <div class="box-body">
+
+                            <div class="timeline-wrap row mbn-50">
+
+                                <div class="col-12 mb-50"><span class="timeline-date">{{ new.date }}</span></div>
+
+                                <div class="col-12 mb-50">
+                                    <ul class="timeline-list">
+
+                                        <li>
+                                            <span class="icon"><i class="zmdi zmdi-receipt"></i></span>
+                                            <div class="details">
+                                                <h5 class="title"><a href="#">{{ new.subtitle }}</a></h5>
+                                                <div class="content">
+                                                    <p>{{ new.dsc }}</p>
+                                                </div>
+                                                <span class="time">5 min ago</span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+{% endfor %}
+
+{% endblock %}

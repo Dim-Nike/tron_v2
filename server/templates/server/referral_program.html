@@ -1,0 +1,42 @@
+{% extends 'server/technical/pattern.html' %}
+{% load static %}
+
+
+{% block title %}{{ data.title }}{% endblock %}
+{% block content %}
+
+<div class="col-12 mb-30">
+                    <div class="box">
+                        <div class="box-head">
+                            <h3 class="title">Мои рефералы</h3>
+                        </div>
+                        <div class="box-body">
+
+                            <table class="table table-bordered data-table data-table-export">
+                                <thead>
+                                    <tr>
+                                        <th>Пользователь</th>
+                                        <th>Тариф</th>
+                                        <th>Сумма зачислений</th>
+                                        <th>Последняя активность</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for el in user_ref %}
+                                    <tr>
+                                        <td>{{ el.username }}</td>
+                                        <td>{{ el.tariff }}</td>
+                                        <td>{{ el.payments }}</td>
+                                        <td>{{ el.last_active.date }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+{% endblock %}
